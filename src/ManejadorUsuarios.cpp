@@ -37,4 +37,6 @@ ManejadorUsuarios* ManejadorUsuarios::instancia = nullptr;
         if (existeUsuario(nickname)){
             return this->usuarios[nickname];
         }
+        else 
+            return nullptr;
     }
