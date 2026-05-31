@@ -14,6 +14,11 @@ private:
 
 public:
     Vehiculo(std::string matricula, int capacidad, std::string marca, std::string modelo, TipoVehiculo tipo);
+    std::string getMatricula() const;
+    int getCapacidad() const;
+    std::string getMarca() const;
+    std::string getModelo() const;
+    TipoVehiculo getTipo() const;
     ~Vehiculo();
 };
 
