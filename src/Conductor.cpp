@@ -13,4 +13,22 @@ TipoUsuario Conductor::getTipoUsuario() const {
     return TipoConductor;
 }
 
+bool Conductor::puedeManejar(TipoVehiculo tipo) const {
+    if (tipo == Auto) {
+        return this->libretas.count(AutoProfesional) > 0 || this->libretas.count(AutoAmateur) > 0;
+    }
+
+    if (tipo == Moto) {
+        return this->libretas.count(MotoProfesional) > 0 || this->libretas.count(MotoAmateur) > 0;
+    }
+
+    return false;
+}
+
+
+void Conductor::linkVehiculo(Vehiculo* v){
+    std::string matricula = v->getMatricula();
+    this->vehiculos.insert({matricula,v});
+}
+
 Conductor::~Conductor() {}
