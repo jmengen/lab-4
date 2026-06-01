@@ -11,7 +11,7 @@ bool ControlAltaUsuario::altaPasajero(string nickname, string nombre, string con
     }
 }
 
-bool altaConductor(string nickname, string nombre, string contrasena, string email, set<TipoLibreta> libs){
+bool ControlAltaUsuario::altaConductor(string nickname, string nombre, string contrasena, string email, set<TipoLibreta> libs){
     ManejadorUsuarios* m = ManejadorUsuarios::getInstance();
     if (m->existeUsuario(nickname))
         return false;
@@ -21,11 +21,22 @@ bool altaConductor(string nickname, string nombre, string contrasena, string ema
     }
 }
 
-int registrarVehiculo(string nickname, string matricula, int capacidad, string marca, string modelo, TipoVehiculo tipo){
+int ControlAltaUsuario::registrarVehiculo(string nickname, string matricula, int capacidad, string marca, string modelo, TipoVehiculo tipo){
     ManejadorUsuarios* m = ManejadorUsuarios::getInstance();
-    Usuario* c = m->getUsuario(nickname);
-    
-
-
-
+    Conductor* c = m->getConductor(nickname);
+    if ( c== nullptr)
+        return 67;
+    ManejadorVehiculos* v = ManejadorVehiculos::getInstancia();
+    if (!v->existeVehiculo(matricula)){
+        if (c->puedeManejar(tipo)){
+            Vehiculo* ve = v->crearVehiculo(matricula, capacidad, marca, modelo, tipo);
+            c->linkVehiculo(ve);
+            return 0;
+        }
+        else 
+            return (-2);
+    }
+    else return (-1);
 }
+
+ControlAltaUsuario::~ControlAltaUsuario() {}

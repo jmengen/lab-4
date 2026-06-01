@@ -22,6 +22,8 @@ class ManejadorUsuarios {
         void crearPasajero(std::string nickname, std::string nombre, std::string contrasena, std::string email, std::string ci);
         void crearConductor(std::string nickname, std::string nombre, std::string contrasena, std::string email, std::set<TipoLibreta> libs);
         Usuario* getUsuario(std::string nickname);
+        Pasajero* getPasajero (std::string nickname);
+        Conductor* getConductor (std::string nickname);
 };
 
 #endif
