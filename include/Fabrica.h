@@ -1,6 +1,7 @@
 #ifndef FABRICA_H
 #define FABRICA_H
 
+#include "IControlAltaUsuario.h"
 #include "IControladorFechaActual.h"
 
 class Fabrica {
@@ -11,7 +12,7 @@ private:
 
 public:
     static Fabrica* getInstance();
-
+    IControlAltaUsuario* getIControlAltaUsuario();
     IControladorFechaActual* getIControladorFechaActual();
 };
 

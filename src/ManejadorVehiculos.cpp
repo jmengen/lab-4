@@ -14,11 +14,12 @@ bool ManejadorVehiculos::existeVehiculo(std::string matricula){
     return this->vehiculos.find(matricula) != this->vehiculos.end();
 }
 
-void ManejadorVehiculos::crearVehiculo(std::string matricula, int capacidad, std::string marca, std::string modelo, TipoVehiculo tipo){
+Vehiculo* ManejadorVehiculos::crearVehiculo(std::string matricula, int capacidad, std::string marca, std::string modelo, TipoVehiculo tipo){
     if (existeVehiculo(matricula))
-        return;
+        return nullptr;
     else{
         Vehiculo* ve = new Vehiculo(matricula, capacidad, marca, modelo, tipo);
         this->vehiculos.insert({matricula,ve});
+        return ve;
     }
 }
