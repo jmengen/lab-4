@@ -11,6 +11,7 @@ private:
 public:
     Reserva(int asientosReservados, DTFecha fecha);
     ~Reserva();
+    int getAsientosReservados();
 };
 
 #endif
