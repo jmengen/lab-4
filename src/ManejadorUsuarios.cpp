@@ -34,9 +34,8 @@ ManejadorUsuarios* ManejadorUsuarios::instancia = nullptr;
     }
 
     Usuario* ManejadorUsuarios::getUsuario(std::string nickname){
-        if (existeUsuario(nickname)){
+        if (existeUsuario(nickname))
             return this->usuarios[nickname];
-        }
         else 
             return nullptr;
     }
