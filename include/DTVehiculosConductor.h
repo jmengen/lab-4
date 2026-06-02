@@ -10,11 +10,12 @@ private:
   int capacidad;
 
 public:
-  DTVehiculosConductor(std::string matricula, std::string marca, int capacidad);
+  DTVehiculosConductor(std::string matricula, std::string modelo, int capacidad);
 
   std::string getMatricula();
   std::string getModelo();
   int getCapacidad();
+  bool operator<(const DTVehiculosConductor& otro) const;
 };
 
 #endif

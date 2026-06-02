@@ -3,6 +3,7 @@
 
 #include "DTFecha.h"
 #include <string>
+#include "DTListarViaje.h"
 
 class Viaje {
 private:
@@ -16,6 +17,8 @@ private:
 public:
     Viaje(int codigo, DTFecha fecha, std::string origen, std::string destino, int asientosPublicados, float precio);
     ~Viaje();
+    DTListarViaje getDTListarViaje();
+
 };
 
 #endif

@@ -6,6 +6,7 @@
 #include "TipoVehiculo.h"
 #include <set>
 #include <map>
+#include "DTVehiculosConductor.h"
 
 class Conductor : public Usuario {
 private:
@@ -20,6 +21,8 @@ public:
     void linkVehiculo(Vehiculo* v);
 
     ~Conductor();
+
+    std::set<DTVehiculosConductor> listarVehiculos();
 };
 
 #endif

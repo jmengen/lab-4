@@ -32,3 +32,15 @@ void Conductor::linkVehiculo(Vehiculo* v){
 }
 
 Conductor::~Conductor() {}
+
+std::set<DTVehiculosConductor> Conductor::listarVehiculos() {
+    std::set<DTVehiculosConductor> resultado;
+    std::map<std::string, Vehiculo*>::iterator it;
+
+    for (it = this->vehiculos.begin(); it != this->vehiculos.end(); it++) {
+        Vehiculo* v = it->second;
+        resultado.insert(DTVehiculosConductor(v->getMatricula(), v->getModelo(), v->getCapacidad()));
+    }
+
+    return resultado;
+}
