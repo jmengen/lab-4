@@ -37,4 +37,8 @@ int Viaje::getCodigo() const{
     return this->codigo;
 }
 
+DTConsultaViaje  Viaje::CrearDTCV(int asientos) const{
+    return DTConsultaViaje(this->codigo, vehiculo->getMarca(), vehiculo->getModelo(), vehiculo->getNombreConductor(),vehiculo->getCalifConductor(),this->precio * asientos);
+}
+
 Viaje::~Viaje() {}

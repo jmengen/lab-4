@@ -25,6 +25,7 @@ public:
     bool Entran(int asientos) const;
     void asociarReserva(Reserva res);
     int getCodigo() const;
+    DTConsultaViaje CrearDTCV(int asientos) const;
     ~Viaje();
 };
 
