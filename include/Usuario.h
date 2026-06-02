@@ -9,6 +9,7 @@ protected:
     std::string nombre;
     std::string contrasena;
     std::string email;
+    float calificacionPromedio;
 
 public:
     Usuario(std::string nickname, std::string nombre, std::string contrasena, std::string email);
@@ -17,6 +18,7 @@ public:
     std::string getNombre() const;
     std::string getContrasena() const;
     std::string getEmail() const;
+    float getCalificacion() const;
     
     virtual ~Usuario();
 };

@@ -23,4 +23,8 @@ std::string Usuario::getEmail() const{
     return this->email;
 }
 
+float Usuario::getCalificacion() const{
+    return this->calificacionPromedio;
+}
+
 Usuario::~Usuario() {}

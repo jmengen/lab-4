@@ -27,4 +27,12 @@ TipoVehiculo Vehiculo::getTipo() const{
     return this->tipo;
 }
 
+std::string Vehiculo::getNombreConductor() const{
+    return this->conductor->getNombre();
+}
+
+float Vehiculo::getCalifConductor() const{
+    return this->conductor->getCalificacion();
+}
+
 Vehiculo::~Vehiculo() {}

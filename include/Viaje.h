@@ -21,7 +21,10 @@ private:
 
 public:
     Viaje(int codigo, DTFecha fecha, std::string origen, std::string destino, int asientosPublicados, float precio);
-    bool ViajeBuscado(DTFecha fecha, std::string origen, std::string destino, int asientos);
+    bool ViajeBuscado(DTFecha fecha, std::string origen, std::string destino, int asientos) const;
+    bool Entran(int asientos) const;
+    void asociarReserva(Reserva res);
+    int getCodigo() const;
     ~Viaje();
 };
 

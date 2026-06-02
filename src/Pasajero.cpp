@@ -12,4 +12,8 @@ TipoUsuario Pasajero::getTipoUsuario() const {
     return TipoPasajero;
 }
 
+void Pasajero::asociarReserva(Reserva res){
+    this->reservas.insert(res);
+}
+
 Pasajero::~Pasajero() {}
