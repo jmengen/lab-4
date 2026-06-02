@@ -1,5 +1,6 @@
 #include "../include/Viaje.h"
 #include "../include/Reserva.h"
+#include "../include/DTConsultaViaje.h"
 #include <set>
 
 Viaje::Viaje(int codigo, DTFecha fecha, std::string origen, std::string destino, int asientosPublicados, float precio) {
