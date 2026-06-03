@@ -20,7 +20,6 @@ ManejadorUsuarios* ManejadorUsuarios::instancia = nullptr;
         else{
             Pasajero* p = new Pasajero(nickname, nombre, contrasena, email, ci);
             this->usuarios.insert ({nickname,p});
-
         }
     }
 
@@ -38,4 +37,8 @@ ManejadorUsuarios* ManejadorUsuarios::instancia = nullptr;
             return this->usuarios[nickname];
         else 
             return nullptr;
+    }
+
+    std::set<Pasajero> ManejadorUsuarios::getPasajeros(){
+        return this->pasajeros;
     }

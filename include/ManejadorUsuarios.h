@@ -12,7 +12,9 @@
 class ManejadorUsuarios {
     private:
         static ManejadorUsuarios* instancia;
+
         std::map <std::string, Usuario*> usuarios;
+        std::set<Pasajero> pasajeros;
         ManejadorUsuarios() = default;
 
     public:
@@ -22,6 +24,8 @@ class ManejadorUsuarios {
         void crearPasajero(std::string nickname, std::string nombre, std::string contrasena, std::string email, std::string ci);
         void crearConductor(std::string nickname, std::string nombre, std::string contrasena, std::string email, std::set<TipoLibreta> libs);
         Usuario* getUsuario(std::string nickname);
+        std::set<Pasajero> getPasajeros();
+        
 };
 
 #endif
