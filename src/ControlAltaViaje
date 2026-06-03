@@ -1,6 +1,0 @@
-#include "../include/ControlAltaViaje.h"
-std::set<DTVehiculosConductor> listarVehiculosConductor(std::string nickname){
-    std::set<DTVehiculosConductor> resultado;
-    std::set<DTVehiculosConductor>::iterator it;
-}
-

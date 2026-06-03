@@ -4,7 +4,7 @@
 #include "DTFecha.h"
 #include <string>
 #include "DTListarViaje.h"
-
+class Vehiculo;
 class Viaje {
 private:
     int codigo;
@@ -13,12 +13,12 @@ private:
     std::string destino;
     int asientosPublicados;
     float precio;
-
+    Vehiculo* vehiculo;
 public:
-    Viaje(int codigo, DTFecha fecha, std::string origen, std::string destino, int asientosPublicados, float precio);
+    Viaje(int codigo, DTFecha fecha, std::string origen, std::string destino, int asientosPublicados, float precio, Vehiculo* vehiculo);
     ~Viaje();
     DTListarViaje getDTListarViaje();
-
+    DTFecha getFecha();
 };
 
 #endif

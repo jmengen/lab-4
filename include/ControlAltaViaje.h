@@ -8,7 +8,7 @@
 #include "ManejadorVehiculos.h"
 #include "ManejadorViaje.h"
 
-class ControladorAltaViaje {
+class ControlAltaViaje {
     public:
         std::set<DTVehiculosConductor>listarVehiculosConductor(std::string nickname);
         bool altaViaje(std::string matricula, DTFecha fecha, std::string origen, std::string destino , int asientos, float precio);

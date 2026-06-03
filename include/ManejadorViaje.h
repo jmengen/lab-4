@@ -19,7 +19,7 @@ public:
     static ManejadorViajes* getInstance();
     std::set<Viaje*>getViajes();
     std::set<DTListarViaje> getDTListarViajes();
-    Viaje* crearViaje(DTFecha fecha, std::string origen, std::string destino, int asientos, float precio, Vehiculo* vehiculo);
+    Viaje* crearViaje(DTFecha fecha, std::string origen, std::string destino, int asientos, float precio,Vehiculo* vehiculo);
     Viaje* getViaje(int codigo);
 };
 

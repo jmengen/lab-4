@@ -31,6 +31,7 @@ int ControlAltaUsuario::registrarVehiculo(string nickname, string matricula, int
         if (c->puedeManejar(tipo)){
             Vehiculo* ve = v->crearVehiculo(matricula, capacidad, marca, modelo, tipo);
             c->linkVehiculo(ve);
+            ve->setConductor(c);
             return 0;
         }
         else 
