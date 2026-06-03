@@ -19,7 +19,7 @@ class ManejadorViajes {
         static ManejadorViajes* getInstance();
         std::set<Viaje> getViajes();
         bool existeViaje(int codigo);
-        Viaje* getViaje(int codigo);
+        Viaje * getViaje(int codigo);
 };
 
 #endif

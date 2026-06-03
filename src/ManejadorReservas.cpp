@@ -23,9 +23,10 @@ bool ManejadorReservas::NoExisteReserva(Viaje vi, Pasajero p){
     return ret;
 }
 
-void ManejadorReservas::CrearReserva(Viaje * vi, Pasajero * p, int asientosReservados){
+Reserva ManejadorReservas::CrearReserva(Viaje * vi, Pasajero * p, int asientosReservados){
     ControladorFechaActual * contFech = ControladorFechaActual::getInstance();
     DTFecha fecha = contFech->getFecha();
     Reserva r = Reserva(vi, p, asientosReservados, fecha);
     this->reservas.insert(r);
+    return r;
 }

@@ -18,7 +18,7 @@ class ManejadorReservas {
         static ManejadorReservas* getInstance();
 
         bool NoExisteReserva(Viaje vi, Pasajero p);
-        void CrearReserva(Viaje * vi, Pasajero * p, int asientosReservados);
+        Reserva CrearReserva(Viaje * vi, Pasajero * p, int asientosReservados);
 };
 
 #endif
