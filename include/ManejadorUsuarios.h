@@ -26,6 +26,8 @@ class ManejadorUsuarios {
         Usuario* getUsuario(std::string nickname);
         std::set<Pasajero> getPasajeros();
         
+        Pasajero* getPasajero (std::string nickname);
+        Conductor* getConductor (std::string nickname);
 };
 
 #endif

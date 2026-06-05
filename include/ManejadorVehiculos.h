@@ -15,7 +15,7 @@ public:
     static ManejadorVehiculos* getInstancia();
 
     bool existeVehiculo(std::string matricula);
-    void crearVehiculo(std::string matricula, int capacidad, std::string marca, std::string modelo, TipoVehiculo tipo);
+    Vehiculo* crearVehiculo(std::string matricula, int capacidad, std::string marca, std::string modelo, TipoVehiculo tipo);
 
 };
 
