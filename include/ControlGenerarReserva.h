@@ -8,7 +8,13 @@
 #include <iostream>
 
 class ControlGenerarReserva : public IControlGenerarReserva{
+    private:
+        static ControlGenerarReserva * instancia;
+        ControlGenerarReserva() = default;
+
     public:
+        static ControlGenerarReserva * getInstance();
+
         std::set<std::string> listarPasajeros();
         std::set<DTConsultaViaje> consultarViajes(DTFecha fecha, std::string origen, std::string destino, int asientos);
         bool generarReserva(std::string nickname, int codigo, int asientos);

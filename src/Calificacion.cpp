@@ -5,4 +5,8 @@ Calificacion::Calificacion(DTFecha fecha, int puntaje) {
     this->puntaje = puntaje;
 }
 
+int Calificacion::getPuntaje() const{
+    return this->puntaje;
+}
+
 Calificacion::~Calificacion() {}

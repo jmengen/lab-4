@@ -8,8 +8,8 @@ DTDetalleViaje::DTDetalleViaje(int codigo, DTFecha fecha, std::string origen, st
     this->destino = destino;
     this->asientosPublicados = asientosPublicados;
     this->precio = precio;
-    vehiculo(vehi); 
-    reservas(res);
+    this->vehiculo = vehi; 
+    this->reservas = res;
  }
 
 

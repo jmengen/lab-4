@@ -1,6 +1,13 @@
 #include "../include/ControlGenerarReserva.h"
 using namespace std;
 
+ControlGenerarReserva * ControlGenerarReserva::getInstance(){
+    if(instancia == nullptr){
+        instancia = new ControlGenerarReserva();
+    }
+    return instancia;
+}
+
 std::set<std::string> ControlGenerarReserva::listarPasajeros(){
     ManejadorUsuarios* m = ManejadorUsuarios::getInstance();
     std::set<Pasajero> p = m->getPasajeros();
@@ -15,16 +22,16 @@ std::set<std::string> ControlGenerarReserva::listarPasajeros(){
 
 std::set<DTConsultaViaje> ControlGenerarReserva::consultarViajes(DTFecha fecha, std::string origen, std::string destino, int asientos){
     ManejadorViajes* m = ManejadorViajes::getInstance();
-    std::set<Viaje> vis = m->getViajes();
+    std::set<Viaje*> vis = m->getViajes();
 
     std::set<DTConsultaViaje> ret;
 
-    std::set<Viaje>::iterator it;
+    std::set<Viaje*>::iterator it;
     for (it = vis.begin(); it != vis.end(); ++it){
-        Viaje actual = *it;
-        bool cond = actual.ViajeBuscado(fecha, origen, destino, asientos);
+        Viaje* actual = *it;
+        bool cond = actual->ViajeBuscado(fecha, origen, destino, asientos);
         if(cond){
-            DTConsultaViaje dtcv = actual.CrearDTCV(asientos);
+            DTConsultaViaje dtcv = actual->CrearDTCV(asientos);
             ret.insert(dtcv);
             // OJO: Falta ordenar la lista para que cumpla con el contrato
             // Usa vector?

@@ -2,8 +2,10 @@
 #define FABRICA_H
 
 #include "IControlAltaUsuario.h"
-#include "IControladorFechaActual.h"
 #include "IControlAltaViaje.h"
+#include "IControlGenerarReserva.h"
+
+#include "IControladorFechaActual.h"
 
 class Fabrica {
 private:

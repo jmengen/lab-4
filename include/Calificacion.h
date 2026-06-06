@@ -10,6 +10,7 @@ private:
 
 public:
     Calificacion(DTFecha fecha, int puntaje);
+    int getPuntaje() const;
     ~Calificacion();
 };
 

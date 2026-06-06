@@ -23,7 +23,14 @@ std::string Usuario::getEmail() const{
     return this->email;
 }
 
-float Usuario::getCalificacion() const{
+float Usuario::getCalificacion(){
+    int sum = 0;
+    std::set<Calificacion>::iterator it;
+    for (it = this->califica.begin(); it != this->califica.end(); ++it){
+        Calificacion actual = *it;
+        sum += actual.getPuntaje();
+    } 
+    this->calificacionPromedio = sum / this->califica.size();
     return this->calificacionPromedio;
 }
 

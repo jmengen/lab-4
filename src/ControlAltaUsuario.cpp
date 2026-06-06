@@ -1,6 +1,13 @@
 #include "../include/ControlAltaUsuario.h"
 using namespace std;
 
+ControlAltaUsuario *ControlAltaUsuario::getInstance(){
+    if(instancia == nullptr){
+        instancia = new ControlAltaUsuario();
+    }
+    return instancia;
+}
+
 bool ControlAltaUsuario::altaPasajero(string nickname, string nombre, string contrasena, string email, string ci){
     ManejadorUsuarios* m = ManejadorUsuarios::getInstance();
     if (m->existeUsuario(nickname))

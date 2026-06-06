@@ -6,6 +6,13 @@
 #include "Vehiculo.h"
 #include "Conductor.h"
 
+ControlAltaViaje * ControlAltaViaje::getInstance(){
+    if(instancia == nullptr){
+        instancia = new ControlAltaViaje();
+    }
+    return instancia;
+}
+
 std::set<DTVehiculosConductor> ControlAltaViaje::listarVehiculosConductor(std::string nickname){
     std::set<DTVehiculosConductor> res ;
     ManejadorUsuarios* m = ManejadorUsuarios::getInstance();
