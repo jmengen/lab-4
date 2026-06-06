@@ -1,25 +1,47 @@
 #include "../include/ManejadorViajes.h"
+#include "Viaje.h"
+#include <set>
 
 ManejadorViajes* ManejadorViajes::instancia = nullptr;
 
 ManejadorViajes *ManejadorViajes::getInstance(){
     if(instancia == nullptr){
         instancia = new ManejadorViajes();
+        instancia->SiguienteCodigo = 1;
     }
     return instancia;
 }
 
-std::set<Viaje> ManejadorViajes::getViajes(){
-    return this->viajes;
+std::set<Viaje*> ManejadorViajes::getViajes() {
+    std::set<Viaje*> res;
+    std::map<int, Viaje*>::iterator it;
+
+    for (it = this->viajes.begin(); it != this->viajes.end(); it++) {
+        res.insert(it->second);
+    }
+
+    return res;
 }
 
 bool ManejadorViajes::existeViaje(int codigo){
-        return this->mapViajes.find(codigo) != this->mapViajes.end();
+        return this->viajes.find(codigo) != this->viajes.end();
 }
 
 Viaje* ManejadorViajes::getViaje(int codigo){
     if (existeViaje(codigo))
-        return this->mapViajes[codigo];
+        return this->viajes[codigo];
     else 
         return nullptr;
+}
+
+std::set<DTListarViaje> ManejadorViajes::getDTListarViajes() {
+    std::set<DTListarViaje> res;
+    std::map<int, Viaje*>::iterator it;
+
+    for (it = this->viajes.begin(); it != this->viajes.end(); it++) {
+        Viaje* v = it->second;
+        res.insert(v->getDTListarViaje());
+    }
+
+    return res;
 }

@@ -45,10 +45,11 @@ DTConsultaViaje  Viaje::CrearDTCV(int asientos) const{
 }
 
 Viaje::~Viaje() {}
+
 DTFecha Viaje::getFecha() {
     return this->fecha;
 }
 
 DTListarViaje Viaje::getDTListarViaje(){
- return DTListarViaje(this->codigo,this->fecha,this->origen,this->destino,this->vehiculo->getNickConductor());
+    return DTListarViaje(this->codigo,this->fecha,this->origen,this->destino,this->vehiculo->getNickConductor());
 }

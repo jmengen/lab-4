@@ -56,22 +56,24 @@ bool Vehiculo::hayViajesFecha(DTFecha fecha){
     } return false;
 }
 
-    bool Vehiculo::hayViajesConductor(DTFecha fecha){
-        if (this->conductor == nullptr){
-            return false;
-        }
-        return this->conductor->hayViajesFechaConductor(fecha);
+bool Vehiculo::hayViajesConductor(DTFecha fecha){
+    if (this->conductor == nullptr){
+        return false;
     }
+    return this->conductor->hayViajesFechaConductor(fecha);
+}
+
 std::string Vehiculo::getNickConductor() {
     if (this->conductor == nullptr) {
         return "";
     }
-
     return this->conductor->getNickname();
 }
+
 void Vehiculo::asociarViaje(Viaje* viaje){
     this->viajes.insert(viaje);
 }
+
 void Vehiculo::setConductor(Conductor* conductor) {
     this->conductor = conductor;
 }

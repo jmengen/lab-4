@@ -9,7 +9,6 @@
 #include <set>
 #include "DTVehiculosConductor.h"
 
-class Conductor;
 class Vehiculo {
 private:
     std::string matricula;
@@ -28,13 +27,13 @@ public:
     TipoVehiculo getTipo() const;
     std::string getNombreConductor() const;
     float getCalifConductor() const;
-    ~Vehiculo();
     DTVehiculosConductor getDTVehiculoConductor();
     bool hayViajesFecha(DTFecha fecha);
     bool hayViajesConductor(DTFecha fecha);
     std::string getNickConductor();
     void asociarViaje(Viaje* viaje);
     void setConductor(Conductor* conductor);
+    ~Vehiculo();
 };
 
 #endif
