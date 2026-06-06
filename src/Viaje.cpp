@@ -53,3 +53,23 @@ DTFecha Viaje::getFecha() {
 DTListarViaje Viaje::getDTListarViaje(){
     return DTListarViaje(this->codigo,this->fecha,this->origen,this->destino,this->vehiculo->getNickConductor());
 }
+
+std::set<DTUsuarioViaje> Viaje::obtenerParticipantes(std::string nickRecordado){
+    std::set<DTUsuarioViaje> ret;
+    
+    std::set<Reserva>::iterator it;
+    for (it = this->reservas.begin(); it != this->reservas.end(); ++it){
+        Reserva actual = *it;
+        std::string nick = actual.getNickPasajero();
+        if (nick != nickRecordado){
+            ret.insert(DTUsuarioViaje(nick, TipoPasajero));
+        }  
+    } 
+
+    std::string nickC = this->vehiculo->getNickConductor();
+    if (nickC != nickRecordado){
+        ret.insert(DTUsuarioViaje(nickC, TipoConductor));
+    }
+
+    return ret;
+}

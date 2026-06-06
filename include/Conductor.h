@@ -17,9 +17,11 @@ private:
 public:
     Conductor(std::string nickname, std::string nombre, std::string contrasena, std::string email, std::set<TipoLibreta> libs);
     std::set<TipoLibreta> getLibretas() const;
-    TipoUsuario getTipoUsuario() const;
+    TipoUsuario getTipoUsuario() const override;
     bool puedeManejar(TipoVehiculo tipo) const;
     void linkVehiculo(Vehiculo* v);
+
+    std::set<DTListarViaje> obtenerDTListarViaje() override;
 
     ~Conductor();
 

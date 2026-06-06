@@ -25,14 +25,19 @@ public:
     std::string getMarca() const;
     std::string getModelo() const;
     TipoVehiculo getTipo() const;
+
     std::string getNombreConductor() const;
+    std::string getNickConductor() const;
     float getCalifConductor() const;
-    DTVehiculosConductor getDTVehiculoConductor();
+    
     bool hayViajesFecha(DTFecha fecha);
     bool hayViajesConductor(DTFecha fecha);
-    std::string getNickConductor();
+    
     void asociarViaje(Viaje* viaje);
     void setConductor(Conductor* conductor);
+
+    DTVehiculosConductor getDTVehiculoConductor() const;
+    std::set<DTListarViaje> getDTListarViaje() const;
     ~Vehiculo();
 };
 

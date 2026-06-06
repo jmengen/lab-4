@@ -34,4 +34,9 @@ float Usuario::getCalificacion(){
     return this->calificacionPromedio;
 }
 
+DTUsuario Usuario::getDTUsuario() const{
+    return DTUsuario(this->nickname, this->nombre);
+}
+
+
 Usuario::~Usuario() {}

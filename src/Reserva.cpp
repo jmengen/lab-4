@@ -16,3 +16,14 @@ int Reserva::getAsientosReservados() const{
 bool Reserva::esReserva(Viaje v, Pasajero p) const{
     return(this->pasajero->getNickname() == p.getNickname() && this->viaje->getCodigo() == v.getCodigo());
 }
+
+DTListarViaje Reserva::getDTViaje() const{
+    return this->viaje->getDTListarViaje();
+}
+
+std::string Reserva::getNickPasajero() const{
+    if (this->pasajero == nullptr) {
+        return "";
+    }
+    return this->pasajero->getNickname();
+}

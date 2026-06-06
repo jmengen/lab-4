@@ -42,7 +42,7 @@ float Vehiculo::getCalifConductor() const{
 
 Vehiculo::~Vehiculo() {}
 
-DTVehiculosConductor Vehiculo::getDTVehiculoConductor(){
+DTVehiculosConductor Vehiculo::getDTVehiculoConductor() const{
     DTVehiculosConductor res(this->matricula,this->modelo,this->capacidad);
     return res;
 }
@@ -53,7 +53,8 @@ bool Vehiculo::hayViajesFecha(DTFecha fecha){
         if (v->getFecha() == fecha){
             return true;
         }
-    } return false;
+    }
+    return false;
 }
 
 bool Vehiculo::hayViajesConductor(DTFecha fecha){
@@ -63,7 +64,7 @@ bool Vehiculo::hayViajesConductor(DTFecha fecha){
     return this->conductor->hayViajesFechaConductor(fecha);
 }
 
-std::string Vehiculo::getNickConductor() {
+std::string Vehiculo::getNickConductor() const{
     if (this->conductor == nullptr) {
         return "";
     }
@@ -76,4 +77,13 @@ void Vehiculo::asociarViaje(Viaje* viaje){
 
 void Vehiculo::setConductor(Conductor* conductor) {
     this->conductor = conductor;
+}
+
+std::set<DTListarViaje> Vehiculo::getDTListarViaje() const{
+    std::set<DTListarViaje> ret;
+    for (std::set<Viaje*>::iterator it = this->viajes.begin(); it!=this->viajes.end();++it) {
+        Viaje* v = *it;
+        ret.insert(v->getDTListarViaje());
+    }
+    return ret;
 }

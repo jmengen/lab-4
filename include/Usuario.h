@@ -2,6 +2,8 @@
 #define USUARIO_H
 #include "TipoUsuario.h"
 #include "Calificacion.h"
+#include "DTUsuario.h"
+#include "DTListarViaje.h"
 #include <string>
 #include <set>
 
@@ -24,6 +26,9 @@ public:
     std::string getContrasena() const;
     std::string getEmail() const;
     float getCalificacion();
+
+    DTUsuario getDTUsuario() const;
+    virtual std::set<DTListarViaje> obtenerDTListarViaje() = 0;
     
     virtual ~Usuario();
 };

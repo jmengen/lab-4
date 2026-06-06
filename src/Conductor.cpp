@@ -55,3 +55,16 @@ bool Conductor::hayViajesFechaConductor(DTFecha fecha){
     }
     return hayViajes;
 }
+
+
+std::set<DTListarViaje> Conductor::obtenerDTListarViaje() {
+    std::set<DTListarViaje> ret;
+
+    std::map<std::string, Vehiculo*>::iterator it;
+    for (it = this->vehiculos.begin(); it != this->vehiculos.end(); it++) {
+        Vehiculo* v = it->second;
+        std::set<DTListarViaje> SetDTLV = v->getDTListarViaje();
+        ret.merge(SetDTLV);
+    }
+    return ret;
+}

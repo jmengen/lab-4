@@ -17,6 +17,10 @@ public:
     ~Reserva();
     bool esReserva(Viaje v, Pasajero p) const;
     int getAsientosReservados() const;
+
+    DTListarViaje getDTViaje() const;
+
+    std::string getNickPasajero() const;
 };
 
 #endif
