@@ -20,11 +20,11 @@ std::set<std::string> ControlGenerarReserva::listarPasajeros(){
     return ret;
 }
 
-std::set<DTConsultaViaje> ControlGenerarReserva::consultarViajes(DTFecha fecha, std::string origen, std::string destino, int asientos){
+std::list<DTConsultaViaje> ControlGenerarReserva::consultarViajes(DTFecha fecha, std::string origen, std::string destino, int asientos){
     ManejadorViajes* m = ManejadorViajes::getInstance();
     std::set<Viaje*> vis = m->getViajes();
 
-    std::set<DTConsultaViaje> ret;
+    std::list<DTConsultaViaje> ret;
 
     std::set<Viaje*>::iterator it;
     for (it = vis.begin(); it != vis.end(); ++it){
@@ -32,12 +32,11 @@ std::set<DTConsultaViaje> ControlGenerarReserva::consultarViajes(DTFecha fecha, 
         bool cond = actual->ViajeBuscado(fecha, origen, destino, asientos);
         if(cond){
             DTConsultaViaje dtcv = actual->CrearDTCV(asientos);
-            ret.insert(dtcv);
-            // OJO: Falta ordenar la lista para que cumpla con el contrato
-            // Usa vector?
+            ret.push_front(dtcv);
         }
     } 
-    return ret;
+    ret.sort();
+    return ret; 
 }
 
 

@@ -45,13 +45,13 @@ std::set<DTVehiculosConductor> Conductor::listarVehiculos() {
 
     return res;
 }
-    bool Conductor::hayViajesFechaConductor(DTFecha fecha){
-        bool hayViajes = false;
-        std::map<std::string, Vehiculo*>::iterator it;
+bool Conductor::hayViajesFechaConductor(DTFecha fecha){
+    bool hayViajes = false;
+    std::map<std::string, Vehiculo*>::iterator it;
 
-        for (it = this->vehiculos.begin(); it != this->vehiculos.end() && !hayViajes; it++) {
-            Vehiculo* v = it->second;
-            hayViajes = v->hayViajesFecha(fecha);
-        }
-        return hayViajes;
+    for (it = this->vehiculos.begin(); it != this->vehiculos.end() && !hayViajes; it++) {
+        Vehiculo* v = it->second;
+        hayViajes = v->hayViajesFecha(fecha);
     }
+    return hayViajes;
+}

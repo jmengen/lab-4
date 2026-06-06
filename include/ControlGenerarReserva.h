@@ -6,6 +6,7 @@
 #include "ManejadorReservas.h"
 #include "DTConsultaViaje.h"
 #include <iostream>
+#include <vector>
 
 class ControlGenerarReserva : public IControlGenerarReserva{
     private:
@@ -16,7 +17,7 @@ class ControlGenerarReserva : public IControlGenerarReserva{
         static ControlGenerarReserva * getInstance();
 
         std::set<std::string> listarPasajeros();
-        std::set<DTConsultaViaje> consultarViajes(DTFecha fecha, std::string origen, std::string destino, int asientos);
+        std::list<DTConsultaViaje> consultarViajes(DTFecha fecha, std::string origen, std::string destino, int asientos);
         bool generarReserva(std::string nickname, int codigo, int asientos);
         ~ControlGenerarReserva();
 };
