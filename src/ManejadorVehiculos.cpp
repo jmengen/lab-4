@@ -23,3 +23,13 @@ Vehiculo* ManejadorVehiculos::crearVehiculo(std::string matricula, int capacidad
         return ve;
     }
 }
+
+Vehiculo* ManejadorVehiculos::getVehiculo(std::string matricula){
+    Vehiculo* v = nullptr;
+    std::map<std::string, Vehiculo*>::iterator it;
+    it = this->vehiculos.find(matricula);
+    if (it != this->vehiculos.end()) {
+        v = it->second;
+    }
+    return v;
+}
