@@ -3,10 +3,6 @@
 
 #include "DTFecha.h"
 #include <string>
-#include "../include/Vehiculo.h"
-#include "../include/Reserva.h"
-#include <set>
-
 
 class Viaje {
 private:
@@ -16,17 +12,12 @@ private:
     std::string destino;
     int asientosPublicados;
     float precio;
-    Vehiculo * vehiculo;
-    std::set<Reserva> reservas;
 
 public:
     Viaje(int codigo, DTFecha fecha, std::string origen, std::string destino, int asientosPublicados, float precio);
-    bool ViajeBuscado(DTFecha fecha, std::string origen, std::string destino, int asientos) const;
-    bool Entran(int asientos) const;
-    void asociarReserva(Reserva res);
-    int getCodigo() const;
-    DTConsultaViaje CrearDTCV(int asientos) const;
     ~Viaje();
+    DTListarViaje getDTListarViaje();
+    DTFecha getFecha();
 };
 
 #endif

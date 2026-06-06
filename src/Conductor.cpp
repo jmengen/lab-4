@@ -1,5 +1,6 @@
 #include "../include/Conductor.h"
-
+#include "DTVehiculosConductor.h"
+#include "../include/Conductor.h"
 Conductor::Conductor(std::string nickname, std::string nombre, std::string contrasena, std::string email, std::set<TipoLibreta> libs)
     : Usuario(nickname, nombre, contrasena, email) {
     this->libretas = libs;
@@ -32,3 +33,25 @@ void Conductor::linkVehiculo(Vehiculo* v){
 }
 
 Conductor::~Conductor() {}
+
+std::set<DTVehiculosConductor> Conductor::listarVehiculos() {
+    std::set<DTVehiculosConductor> res;
+    std::map<std::string, Vehiculo*>::iterator it;
+
+    for (it = this->vehiculos.begin(); it != this->vehiculos.end(); it++) {
+        Vehiculo* v = it->second;
+        res.insert(DTVehiculosConductor(v->getMatricula(), v->getModelo(), v->getCapacidad()));
+    }
+
+    return res;
+}
+    bool Conductor::hayViajesFechaConductor(DTFecha fecha){
+        bool hayViajes = false;
+        std::map<std::string, Vehiculo*>::iterator it;
+
+        for (it = this->vehiculos.begin(); it != this->vehiculos.end() && !hayViajes; it++) {
+            Vehiculo* v = it->second;
+            hayViajes = v->hayViajesFecha(fecha);
+        }
+        return hayViajes;
+    }

@@ -15,6 +15,7 @@ public:
   std::string getMatricula() const;
   std::string getModelo() const;
   int getCapacidad() const;
+  bool operator<(const DTVehiculosConductor& otro) const;
 };
 
 #endif
