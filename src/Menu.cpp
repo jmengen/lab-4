@@ -7,6 +7,9 @@
 #include <limits>
 #include <string>
 
+#include "../include/ControlGenerarReserva.h"
+#include "../include/ManejadorUsuarios.h"
+
 void Menu::altaUsuario() {
     int tipoUsuario;
     std::cout << "1. Alta Pasajero\n";
@@ -97,13 +100,24 @@ void Menu::altaViaje() {
 }
 
 void Menu::generarReserva() {
-    //TODO: Colecion de String = controlador->listarPasajeros()
-    //TODO: Recorrer la colección y mostrar "> xx"
+    ControlGenerarReserva * controlador = ControlGenerarReserva::getInstance();
+
+    std::set<std::string> coleccionPasajeros = controlador->listarPasajeros(); //Colecion de String = controlador->listarPasajeros()
+    std::set<std::string>::iterator it;
+    for (it = coleccionPasajeros.begin(); it != coleccionPasajeros.end(); ++it){
+        std::cout << "> " << *it << "\n"; //Recorrer la colección y mostrar "> xx"
+    } 
+
     std::string nickname;
     std::cout << "Ingrese nickname del pasajero: "; std::getline(std::cin, nickname);
 
     bool nicknameValido = false;
-    //TODO: Validar nickname en listado
+
+    ManejadorUsuarios* manejus = ManejadorUsuarios::getInstance();
+    if (!manejus->existeUsuario(nickname)){
+        nicknameValido = true; //Validar nickname en listado
+    }
+
     if (!nicknameValido) {
         std::cout << "Nickname invalido.\n";
         return;
@@ -118,10 +132,16 @@ void Menu::generarReserva() {
     std::cout << "Ingrese cantidad de asientos a reservar: "; std::cin >> asientos;
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
-    //TODO: Coleccion de DTConsultaViaje = controlador->consultarViajes(DTFecha(dia, mes, anio), origen, destino, asientos)
-    //TODO: Recorrer la coleccion y mostrar: "> Codigo: xx, Marca: yy, Modelo: zzz, Conductor: aaa, CalificacionPromedio: qqq, PrecioTotal: eee"
+    std::list<DTConsultaViaje> coleccionDTCV = controlador->consultarViajes(DTFecha(dia, mes, anio), origen, destino, asientos);  //Coleccion de DTConsultaViaje = controlador->consultarViajes(DTFecha(dia, mes, anio), origen, destino, asientos)
+    
+    std::list<DTConsultaViaje>::iterator it2;
+    for (it2 = coleccionDTCV.begin(); it2 != coleccionDTCV.end(); ++it2){
+        DTConsultaViaje actual = *it2;
+        std::cout << "> Codigo: " << actual.getCodigo() << ", Marca: " << actual.getMarca() << ", Modelo: " << actual.getModelo() << ", Conductor: " << actual.getConductor() << ", CalificacionPromedio: " << actual.getCalificacionProm() << ", PrecioTotal: " << actual.getPrecioTotal();
+        //Recorrer la coleccion y mostrar: "> Codigo: xx, Marca: yy, Modelo: zzz, Conductor: aaa, CalificacionPromedio: qqq, PrecioTotal: eee"
+    } 
 
-    bool hayViajes = false;//TODO: Validar coleccion vacía
+    bool hayViajes = !coleccionDTCV.empty(); //Validar coleccion vacía
     if (!hayViajes) {
         std::cout << "No hay viajes disponibles.\n";
         return;
@@ -131,14 +151,21 @@ void Menu::generarReserva() {
     std::cout << "Ingrese codigo del viaje a reservar: "; std::cin >> codigo;
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     bool codigoValido = false;
-    //TODO: Validar codigo en listado
+
+    for (it2 = coleccionDTCV.begin(); it2 != coleccionDTCV.end(); ++it2){
+        DTConsultaViaje actual = *it2;
+        if (actual.getCodigo() == codigo){
+            codigoValido = true; //Validar codigo en listado
+            break;
+        }
+    }
+
     if (!codigoValido) {
         std::cout << "Codigo invalido.\n";
         return;
     }
 
-    bool reservaOk = false;
-    //TODO: reservaOk = controlador->generarReserva(nickname, codigo, asientos)
+    bool reservaOk = controlador->generarReserva(nickname, codigo, asientos); //reservaOk = controlador->generarReserva(nickname, codigo, asientos)
     if (reservaOk) {
         std::cout << "Reserva realizada exitosamente.\n";
     } else {
