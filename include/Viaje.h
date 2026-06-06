@@ -1,7 +1,6 @@
 #ifndef VIAJE_H
 #define VIAJE_H
 
-#include "Vehiculo.h"
 #include "Reserva.h"
 #include "DTFecha.h"
 #include "DTListarViaje.h"
@@ -10,6 +9,7 @@
 #include <string>
 #include <set>
 
+class Vehiculo;
 
 class Viaje {
 private:
@@ -29,7 +29,7 @@ public:
     DTFecha getFecha();
     int getCodigo() const;
 
-    bool ViajeBuscado(DTFecha fecha, std::string origen, std::string destino, int asientos) const;
+    bool ViajeBuscado(DTFecha fecha, std::string origen, std::string destino, int asientos);
     bool Entran(int asientos) const;
 
     DTConsultaViaje CrearDTCV(int asientos) const;

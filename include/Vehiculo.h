@@ -2,12 +2,13 @@
 #define VEHICULO_H
 
 #include "TipoVehiculo.h"
-#include "../include/Conductor.h"
 #include <string>
 #include "DTFecha.h"
 #include "Viaje.h"
 #include <set>
 #include "DTVehiculosConductor.h"
+
+class Conductor;
 
 class Vehiculo {
 private:
@@ -17,7 +18,7 @@ private:
     std::string modelo;
     TipoVehiculo tipo;
     std::set<Viaje*> viajes;
-    Conductor* conductor;
+    Conductor * conductor;
 public:
     Vehiculo(std::string matricula, int capacidad, std::string marca, std::string modelo, TipoVehiculo tipo);
     std::string getMatricula() const;
@@ -38,6 +39,9 @@ public:
 
     DTVehiculosConductor getDTVehiculoConductor() const;
     std::set<DTListarViaje> getDTListarViaje() const;
+
+    bool operator<(const Vehiculo& otra) const;
+
     ~Vehiculo();
 };
 

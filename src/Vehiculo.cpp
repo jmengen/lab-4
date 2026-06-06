@@ -87,3 +87,7 @@ std::set<DTListarViaje> Vehiculo::getDTListarViaje() const{
     }
     return ret;
 }
+
+bool Vehiculo::operator<(const Vehiculo& otra) const {
+    return this->matricula < otra.matricula;
+}

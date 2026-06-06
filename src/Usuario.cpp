@@ -40,3 +40,7 @@ DTUsuario Usuario::getDTUsuario() const{
 
 
 Usuario::~Usuario() {}
+
+bool Usuario::operator<(const Usuario& otra) const {
+    return this->nickname < otra.nickname;
+}

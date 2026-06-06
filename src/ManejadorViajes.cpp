@@ -1,5 +1,5 @@
 #include "../include/ManejadorViajes.h"
-#include "Viaje.h"
+#include "../include/Viaje.h"
 #include <set>
 
 ManejadorViajes* ManejadorViajes::instancia = nullptr;
@@ -44,4 +44,9 @@ std::set<DTListarViaje> ManejadorViajes::getDTListarViajes() {
     }
 
     return res;
+}
+
+Viaje* ManejadorViajes::crearViaje(DTFecha fecha, std::string origen, std::string destino, int asientos, float precio,Vehiculo* vehiculo){
+    // FALTA IMPLEMENTACION
+    return nullptr;
 }

@@ -1,5 +1,7 @@
 #include "../include/ManejadorReservas.h"
 #include "../include/Reserva.h"
+#include "../include/Viaje.h"
+#include "../include/Pasajero.h"
 #include "../include/ControladorFechaActual.h"
 
 ManejadorReservas* ManejadorReservas::instancia = nullptr;

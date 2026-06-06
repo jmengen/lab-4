@@ -11,6 +11,7 @@ private:
 
 public:
     DTUsuarioViaje(std::string nickname, TipoUsuario tipo);
+    bool operator<(const DTUsuarioViaje& otra) const;
 
     std::string getNickname();
     TipoUsuario getTipo();

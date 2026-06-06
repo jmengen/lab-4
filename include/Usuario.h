@@ -29,6 +29,8 @@ public:
 
     DTUsuario getDTUsuario() const;
     virtual std::set<DTListarViaje> obtenerDTListarViaje() = 0;
+
+    bool operator<(const Usuario& otra) const;
     
     virtual ~Usuario();
 };

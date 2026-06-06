@@ -62,12 +62,12 @@ Conductor* ManejadorUsuarios::getConductor (std::string nickname){
         return nullptr;
 }
 
-std::set<Usuario> ManejadorUsuarios::getUsuarios(){
-    std::set<Usuario> ret;
+std::set<Usuario*> ManejadorUsuarios::getUsuarios(){
+    std::set<Usuario*> ret;
     std::map <std::string, Usuario*>::iterator it;
     for (it = this->usuarios.begin(); it != this->usuarios.end(); ++it){
         Usuario * puntus = it->second;
-        ret.insert(*puntus); 
+        ret.insert(puntus); 
     }
     return ret;
 }

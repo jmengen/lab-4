@@ -1,6 +1,8 @@
 #include "../include/ControlGenerarReserva.h"
 using namespace std;
 
+ControlGenerarReserva* ControlGenerarReserva::instancia = nullptr;
+
 ControlGenerarReserva * ControlGenerarReserva::getInstance(){
     if(instancia == nullptr){
         instancia = new ControlGenerarReserva();
@@ -58,3 +60,5 @@ bool ControlGenerarReserva::generarReserva(std::string nickname, int codigo, int
     }
     return cond;
 }
+
+ControlGenerarReserva::~ControlGenerarReserva() {}

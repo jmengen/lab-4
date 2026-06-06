@@ -14,7 +14,7 @@ Viaje::Viaje(int codigo, DTFecha fecha, std::string origen, std::string destino,
     this->vehiculo = vehiculo;
 }
 
-bool Viaje::ViajeBuscado(DTFecha fecha, std::string origen, std::string destino, int asientos) const{
+bool Viaje::ViajeBuscado(DTFecha fecha, std::string origen, std::string destino, int asientos){
     if (this->fecha == fecha && this->origen == origen && this->destino == destino){
         return Entran(asientos);
     } else {
@@ -40,7 +40,7 @@ int Viaje::getCodigo() const{
     return this->codigo;
 }
 
-DTConsultaViaje  Viaje::CrearDTCV(int asientos) const{
+DTConsultaViaje Viaje::CrearDTCV(int asientos) const{
     return DTConsultaViaje(this->codigo, vehiculo->getMarca(), vehiculo->getModelo(), vehiculo->getNombreConductor(),vehiculo->getCalifConductor(),this->precio * asientos);
 }
 

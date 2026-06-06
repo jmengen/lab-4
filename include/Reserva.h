@@ -2,8 +2,10 @@
 #define RESERVA_H
 
 #include "DTFecha.h"
-#include "../include/Pasajero.h"
-#include "../include/Viaje.h"
+#include "DTListarViaje.h"
+
+class Pasajero;
+class Viaje;
 
 class Reserva {
 private:
@@ -21,6 +23,7 @@ public:
     DTListarViaje getDTViaje() const;
 
     std::string getNickPasajero() const;
+    bool operator<(const Reserva& otra) const;
 };
 
 #endif

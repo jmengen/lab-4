@@ -1,4 +1,6 @@
 #include "../include/Reserva.h"
+#include "../include/Pasajero.h"
+#include "../include/Viaje.h"
 
 Reserva::Reserva(Viaje * vi, Pasajero * p, int asientosReservados, DTFecha fecha) {
     this->asientosReservados = asientosReservados;
@@ -26,4 +28,12 @@ std::string Reserva::getNickPasajero() const{
         return "";
     }
     return this->pasajero->getNickname();
+}
+
+bool Reserva::operator<(const Reserva& otra) const {
+    if (this->pasajero->getNickname() != otra.pasajero->getNickname()) {
+        return this->pasajero->getNickname() < otra.pasajero->getNickname();
+    }
+
+    return this->viaje->getCodigo() < otra.viaje->getCodigo();
 }
