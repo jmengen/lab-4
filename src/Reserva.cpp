@@ -37,3 +37,7 @@ bool Reserva::operator<(const Reserva& otra) const {
 
     return this->viaje->getCodigo() < otra.viaje->getCodigo();
 }
+
+void Reserva::addCalificacion(Calificacion *c){
+    this->calificaciones.insert(c);
+}

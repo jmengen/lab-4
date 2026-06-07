@@ -3,9 +3,11 @@
 
 #include "DTFecha.h"
 #include "DTListarViaje.h"
+#include <set>
 
 class Pasajero;
 class Viaje;
+class Calificacion;
 
 class Reserva {
 private:
@@ -13,6 +15,7 @@ private:
     DTFecha fecha;
     Pasajero * pasajero;
     Viaje * viaje;
+    std::set<Calificacion*> calificaciones;
 
 public:
     Reserva(Viaje * vi, Pasajero * p, int asientosReservados, DTFecha fecha);
@@ -24,6 +27,7 @@ public:
 
     std::string getNickPasajero() const;
     bool operator<(const Reserva& otra) const;
+    void addCalificacion (Calificacion *c);
 };
 
 #endif

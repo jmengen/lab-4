@@ -38,7 +38,7 @@ Usuario* ManejadorUsuarios::getUsuario(std::string nickname){
         return nullptr;
 }
 
-std::set<Pasajero> ManejadorUsuarios::getPasajeros(){
+std::set<Pasajero*> ManejadorUsuarios::getPasajeros(){
     return this->pasajeros;
 }
 
