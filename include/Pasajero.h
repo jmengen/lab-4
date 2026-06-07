@@ -9,7 +9,7 @@
 class Pasajero : public Usuario {
 private:
     std::string ci;
-    std::set<Reserva> *reservas;
+    std::set<Reserva*> reservas;
 
 public:
     Pasajero(std::string nickname, std::string nombre, std::string contrasena, std::string email, std::string documento);

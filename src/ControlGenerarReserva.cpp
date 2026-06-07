@@ -12,12 +12,12 @@ ControlGenerarReserva * ControlGenerarReserva::getInstance(){
 
 std::set<std::string> ControlGenerarReserva::listarPasajeros(){
     ManejadorUsuarios* m = ManejadorUsuarios::getInstance();
-    std::set<Pasajero> p = m->getPasajeros();
+    std::set<Pasajero*> p = m->getPasajeros();
     std::set<std::string> ret;
-    std::set<Pasajero>::iterator it;
+    std::set<Pasajero*>::iterator it;
     for (it = p.begin(); it != p.end(); ++it){
-        Pasajero actual = *it;
-        ret.insert(actual.getNickname());
+        Pasajero* actual = *it;
+        ret.insert(actual->getNickname());
     } 
     return ret;
 }
@@ -54,7 +54,7 @@ bool ControlGenerarReserva::generarReserva(std::string nickname, int codigo, int
         cond = r->NoExisteReserva(*vi,*p);
     }
     if(cond){
-        Reserva res = r->CrearReserva(vi,p,asientos);
+        Reserva* res = r->CrearReserva(vi,p,asientos);
         vi->asociarReserva(res);
         p->asociarReserva(res);
     }

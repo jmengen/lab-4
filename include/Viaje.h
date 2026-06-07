@@ -21,11 +21,11 @@ private:
     float precio;
 
     Vehiculo * vehiculo;
-    std::set<Reserva> reservas;
+    std::set<Reserva*> reservas;
 
 public:
     Viaje(int codigo, DTFecha fecha, std::string origen, std::string destino, int asientosPublicados, float precio, Vehiculo* vehiculo);
-    void asociarReserva(Reserva res);
+    void asociarReserva(Reserva* res);
     DTFecha getFecha();
     int getCodigo() const;
 

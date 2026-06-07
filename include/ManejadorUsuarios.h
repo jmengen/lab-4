@@ -4,6 +4,7 @@
 #include "Usuario.h"
 #include "Pasajero.h"
 #include "Conductor.h"
+#include "DTUsuario.h"
 #include <string>
 #include <map>
 #include <set>
