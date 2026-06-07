@@ -11,14 +11,14 @@ class ManejadorReservas {
     private:
         static ManejadorReservas* instancia;
 
-        std::set<Reserva> reservas;
+        std::set<Reserva*> reservas;
         ManejadorReservas() = default;
 
     public:
         static ManejadorReservas* getInstance();
 
         bool NoExisteReserva(Viaje vi, Pasajero p);
-        Reserva CrearReserva(Viaje * vi, Pasajero * p, int asientosReservados);
+        Reserva* CrearReserva(Viaje * vi, Pasajero * p, int asientosReservados);
 };
 
 #endif
