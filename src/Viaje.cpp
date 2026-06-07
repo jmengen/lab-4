@@ -24,15 +24,15 @@ bool Viaje::ViajeBuscado(DTFecha fecha, std::string origen, std::string destino,
 
 bool Viaje::Entran(int asientos) const{
     int cantYaReservados = 0;
-    std::set<Reserva>::iterator it;
+    std::set<Reserva*>::iterator it;
     for (it = this->reservas.begin(); it != this->reservas.end(); ++it){
-        Reserva actual = *it;
-        cantYaReservados += actual.getAsientosReservados();
+        Reserva* actual = *it;
+        cantYaReservados += actual->getAsientosReservados();
     } 
     return (cantYaReservados + asientos <= this->asientosPublicados);
 }
 
-void Viaje::asociarReserva(Reserva res){
+void Viaje::asociarReserva(Reserva* res){
     this->reservas.insert(res);
 }
 
@@ -57,10 +57,10 @@ DTListarViaje Viaje::getDTListarViaje(){
 std::set<DTUsuarioViaje> Viaje::obtenerParticipantes(std::string nickRecordado){
     std::set<DTUsuarioViaje> ret;
     
-    std::set<Reserva>::iterator it;
+    std::set<Reserva*>::iterator it;
     for (it = this->reservas.begin(); it != this->reservas.end(); ++it){
-        Reserva actual = *it;
-        std::string nick = actual.getNickPasajero();
+        Reserva* actual = *it;
+        std::string nick = actual->getNickPasajero();
         if (nick != nickRecordado){
             ret.insert(DTUsuarioViaje(nick, TipoPasajero));
         }  

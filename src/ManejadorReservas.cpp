@@ -15,20 +15,20 @@ ManejadorReservas *ManejadorReservas::getInstance(){
 
 bool ManejadorReservas::NoExisteReserva(Viaje vi, Pasajero p){
     bool ret = true;
-    std::set<Reserva>::iterator it;
+    std::set<Reserva*>::iterator it;
     for (it = this->reservas.begin(); it != this->reservas.end() && ret; ++it){
-        Reserva actual = *it;
-        bool e = actual.esReserva(vi,p);
+        Reserva* actual = *it;
+        bool e = actual->esReserva(vi,p);
         if (e)
             ret = false;
     } 
     return ret;
 }
 
-Reserva ManejadorReservas::CrearReserva(Viaje * vi, Pasajero * p, int asientosReservados){
+Reserva* ManejadorReservas::CrearReserva(Viaje * vi, Pasajero * p, int asientosReservados){
     ControladorFechaActual * contFech = ControladorFechaActual::getInstance();
     DTFecha fecha = contFech->getFecha();
-    Reserva r = Reserva(vi, p, asientosReservados, fecha);
+    Reserva* r = new Reserva(vi, p, asientosReservados, fecha);
     this->reservas.insert(r);
     return r;
 }

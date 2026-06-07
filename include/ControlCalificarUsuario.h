@@ -1,5 +1,5 @@
 #ifndef CONTROLCALIFICARUSUARIO_H
-#define CONTROLCALIFCARUSUARIO_H
+#define CONTROLCALIFICARUSUARIO_H
 #include "IControlCalificarUsuario.h"
 #include "ManejadorUsuarios.h"
 #include "ManejadorViajes.h"
@@ -12,13 +12,14 @@ using namespace std;
 
 class ControlCalificarUsuario{
     private:
-        static ControlCalificarUsuario * instancia;
+        static ControlCalificarUsuario* instancia;
         ControlCalificarUsuario() = default;
+        string nickRecordado;
 
     public:
-        static ControlCalificarUsuario * getInstancia();
+        static ControlCalificarUsuario* getInstance();
         set<DTUsuario> ListarUsuarios();
-        set<DTListarViaje> ListarViajes(string nickname);
+        set<DTListarViaje> listarViajes(string nickname);
         set<DTUsuarioViaje> listarUsuariosViaje(int codigo);
         bool calificarUsuario(string nicknameCalificado, int calificacion);
 
