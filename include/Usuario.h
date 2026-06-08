@@ -1,9 +1,10 @@
 #ifndef USUARIO_H
 #define USUARIO_H
 #include "TipoUsuario.h"
+#include "DTUsuario.h"
+#include "DTListarViaje.h"
 #include <string>
 #include <set>
-
 class Calificacion;
 
 class Usuario {
@@ -12,7 +13,11 @@ protected:
     std::string nombre;
     std::string contrasena;
     std::string email;
-    std::set<Calificacion*> calificacion;
+    float calificacionPromedio;
+
+    std::set<Calificacion*> realiza;
+    std::set<Calificacion*> califica;
+
 public:
     Usuario(std::string nickname, std::string nombre, std::string contrasena, std::string email);
     virtual TipoUsuario getTipoUsuario() const = 0;
@@ -20,6 +25,14 @@ public:
     std::string getNombre() const;
     std::string getContrasena() const;
     std::string getEmail() const;
+    float getCalificacion();
+
+    DTUsuario getDTUsuario() const;
+    virtual std::set<DTListarViaje> obtenerDTListarViaje() = 0;
+    void addCalCal (Calificacion *c);
+    void addCalRea (Calificacion *c);
+
+    bool operator<(const Usuario& otra) const;
     
     virtual ~Usuario();
     void quitarCalificacion(Calificacion* c);

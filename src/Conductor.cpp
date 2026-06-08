@@ -1,6 +1,6 @@
 #include "../include/Conductor.h"
-#include "DTVehiculosConductor.h"
-#include "../include/Conductor.h"
+#include "../include/DTVehiculosConductor.h"
+
 Conductor::Conductor(std::string nickname, std::string nombre, std::string contrasena, std::string email, std::set<TipoLibreta> libs)
     : Usuario(nickname, nombre, contrasena, email) {
     this->libretas = libs;
@@ -45,13 +45,26 @@ std::set<DTVehiculosConductor> Conductor::listarVehiculos() {
 
     return res;
 }
-    bool Conductor::hayViajesFechaConductor(DTFecha fecha){
-        bool hayViajes = false;
-        std::map<std::string, Vehiculo*>::iterator it;
+bool Conductor::hayViajesFechaConductor(DTFecha fecha){
+    bool hayViajes = false;
+    std::map<std::string, Vehiculo*>::iterator it;
 
-        for (it = this->vehiculos.begin(); it != this->vehiculos.end() && !hayViajes; it++) {
-            Vehiculo* v = it->second;
-            hayViajes = v->hayViajesFecha(fecha);
-        }
-        return hayViajes;
+    for (it = this->vehiculos.begin(); it != this->vehiculos.end() && !hayViajes; it++) {
+        Vehiculo* v = it->second;
+        hayViajes = v->hayViajesFecha(fecha);
     }
+    return hayViajes;
+}
+
+
+std::set<DTListarViaje> Conductor::obtenerDTListarViaje() {
+    std::set<DTListarViaje> ret;
+
+    std::map<std::string, Vehiculo*>::iterator it;
+    for (it = this->vehiculos.begin(); it != this->vehiculos.end(); it++) {
+        Vehiculo* v = it->second;
+        std::set<DTListarViaje> SetDTLV = v->getDTListarViaje();
+        ret.merge(SetDTLV);
+    }
+    return ret;
+}

@@ -1,17 +1,26 @@
 #include "../include/ControlAltaViaje.h"
-#include "Usuario.h"
-#include "ManejadorUsuarios.h"
+#include "../include/Usuario.h"
+#include "../include/ManejadorUsuarios.h"
+#include "../include/DTVehiculosConductor.h"
+#include "../include/Vehiculo.h"
+#include "../include/Conductor.h"
 #include <set>
-#include "DTVehiculosConductor.h"
-#include "Vehiculo.h"
-#include "Conductor.h"
+
+ControlAltaViaje* ControlAltaViaje::instancia = nullptr;
+
+ControlAltaViaje * ControlAltaViaje::getInstance(){
+    if(instancia == nullptr){
+        instancia = new ControlAltaViaje();
+    }
+    return instancia;
+}
 
 std::set<DTVehiculosConductor> ControlAltaViaje::listarVehiculosConductor(std::string nickname){
     std::set<DTVehiculosConductor> res ;
     ManejadorUsuarios* m = ManejadorUsuarios::getInstance();
     Conductor* c = m->getConductor(nickname);
     if (c != nullptr){
-    res = c->listarVehiculos();
+        res = c->listarVehiculos();
     }
     return res;
 }

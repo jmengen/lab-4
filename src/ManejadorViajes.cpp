@@ -1,4 +1,4 @@
-#include "../include/ManejadorViaje.h"
+#include "../include/ManejadorViajes.h"
 #include "../include/Viaje.h"
 #include <set>
 
@@ -27,11 +27,15 @@ bool ManejadorViajes::existeViaje(int codigo){
         return this->viajes.find(codigo) != this->viajes.end();
 }
 
-Viaje* ManejadorViajes::getViaje(int codigo){
-    if (existeViaje(codigo))
-        return this->viajes[codigo];
-    else 
-        return nullptr;
+Viaje* ManejadorViajes::getViaje(int codigo) {
+    std::map<int, Viaje*>::iterator it;
+    it = this->viajes.find(codigo);
+
+    if (it != this->viajes.end()) {
+        return it->second;
+    }
+
+    return nullptr;
 }
 
 std::set<DTListarViaje> ManejadorViajes::getDTListarViajes() {
@@ -54,4 +58,8 @@ Viaje* ManejadorViajes::crearViaje(DTFecha fecha, std::string origen, std::strin
     this->viajes.insert({codigo, viaje});
 
     return viaje;
+}
+
+void ManejadorViajes::quitarViaje(int codigo) {
+    this->viajes.erase(codigo);
 }

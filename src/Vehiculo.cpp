@@ -1,7 +1,7 @@
 #include "../include/Vehiculo.h"
-#include "DTVehiculosConductor.h"
+#include "../include/DTVehiculosConductor.h"
 #include <set>
-#include "Viaje.h"
+#include "../include/Viaje.h"
 #include "../include/Conductor.h"
 #include "DTDetalleVehiculo.h"
 Vehiculo::Vehiculo(std::string matricula, int capacidad, std::string marca, std::string modelo, TipoVehiculo tipo) {
@@ -32,9 +32,17 @@ TipoVehiculo Vehiculo::getTipo() const{
     return this->tipo;
 }
 
+std::string Vehiculo::getNombreConductor() const{
+    return this->conductor->getNombre();
+}
+
+float Vehiculo::getCalifConductor() const{
+    return this->conductor->getCalificacion();
+}
+
 Vehiculo::~Vehiculo() {}
 
-DTVehiculosConductor Vehiculo::getDTVehiculoConductor(){
+DTVehiculosConductor Vehiculo::getDTVehiculoConductor() const{
     DTVehiculosConductor res(this->matricula,this->modelo,this->capacidad);
     return res;
 }
@@ -45,25 +53,28 @@ bool Vehiculo::hayViajesFecha(DTFecha fecha){
         if (v->getFecha() == fecha){
             return true;
         }
-    } return false;
+    }
+    return false;
 }
 
-    bool Vehiculo::hayViajesConductor(DTFecha fecha){
-        if (this->conductor == nullptr){
-            return false;
-        }
-        return this->conductor->hayViajesFechaConductor(fecha);
+bool Vehiculo::hayViajesConductor(DTFecha fecha){
+    if (this->conductor == nullptr){
+        return false;
     }
-std::string Vehiculo::getNickConductor() {
+    return this->conductor->hayViajesFechaConductor(fecha);
+}
+
+std::string Vehiculo::getNickConductor() const{
     if (this->conductor == nullptr) {
         return "";
     }
-
     return this->conductor->getNickname();
 }
+
 void Vehiculo::asociarViaje(Viaje* viaje){
     this->viajes.insert(viaje);
 }
+
 void Vehiculo::setConductor(Conductor* conductor) {
     this->conductor = conductor;
 }
@@ -73,4 +84,17 @@ DTDetalleVehiculo Vehiculo::getDTDetalleVehiculo() {
 
 void Vehiculo::quitarViaje(Viaje* vi) {
     this->viajes.erase(vi);
+}
+
+std::set<DTListarViaje> Vehiculo::getDTListarViaje() const{
+    std::set<DTListarViaje> ret;
+    for (std::set<Viaje*>::iterator it = this->viajes.begin(); it!=this->viajes.end();++it) {
+        Viaje* v = *it;
+        ret.insert(v->getDTListarViaje());
+    }
+    return ret;
+}
+
+bool Vehiculo::operator<(const Vehiculo& otra) const {
+    return this->matricula < otra.matricula;
 }

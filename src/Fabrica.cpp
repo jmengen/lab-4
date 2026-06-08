@@ -16,8 +16,3 @@ Fabrica* Fabrica::getInstance() {
 IControladorFechaActual* Fabrica::getIControladorFechaActual() {
     return ControladorFechaActual::getInstance();
 }
-
-IControlAltaUsuario* Fabrica::getIControlAltaUsuario() {
-    static ControlAltaUsuario controladorAltaUsuario;
-    return &controladorAltaUsuario;
-}

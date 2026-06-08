@@ -9,9 +9,30 @@ DTConsultaViaje::DTConsultaViaje(int codigo, std::string marca, std::string mode
     this->precioTotal = precioTotal;
 }
 
-int DTConsultaViaje::getCodigo() { return codigo; }
-std::string DTConsultaViaje::getMarca() { return marca; }
-std::string DTConsultaViaje::getModelo() { return modelo; }
-std::string DTConsultaViaje::getConductor() { return conductor; }
-float DTConsultaViaje::getCalificacionProm() { return calificacionProm; }
-float DTConsultaViaje::getPrecioTotal() { return precioTotal; }
+int DTConsultaViaje::getCodigo() {
+    return codigo;
+}
+std::string DTConsultaViaje::getMarca() {
+    return marca;
+}
+std::string DTConsultaViaje::getModelo() {
+    return modelo;
+}
+std::string DTConsultaViaje::getConductor() {
+    return conductor;
+}
+float DTConsultaViaje::getCalificacionProm() {
+    return calificacionProm;
+}
+float DTConsultaViaje::getPrecioTotal() {
+    return precioTotal;
+}
+
+bool DTConsultaViaje::operator<(const DTConsultaViaje& other) const {
+    if (this->precioTotal != other.precioTotal){
+        return this->precioTotal < other.precioTotal;
+    } else {
+        return this->calificacionProm > other.calificacionProm;
+    }
+}
+

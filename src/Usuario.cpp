@@ -25,8 +25,41 @@ std::string Usuario::getEmail() const{
     return this->email;
 }
 
+float Usuario::getCalificacion() {
+    if (this->califica.empty()) {
+        return 0;
+    }
+
+    int sum = 0;
+
+    std::set<Calificacion*>::iterator it;
+    for (it = this->califica.begin(); it != this->califica.end(); ++it) {
+        Calificacion* actual = *it;
+        sum += actual->getPuntaje();
+    }
+
+    this->calificacionPromedio = (float) sum / this->califica.size();
+    return this->calificacionPromedio;
+}
+DTUsuario Usuario::getDTUsuario() const{
+    return DTUsuario(this->nickname, this->nombre);
+}
+
+void Usuario::addCalCal (Calificacion* c){
+    this->califica.insert(c);
+}
+
+void Usuario::addCalRea (Calificacion* c){
+    this->realiza.insert(c);
+}
+
+
 Usuario::~Usuario() {}
 
 void Usuario::quitarCalificacion(Calificacion* c){
-     this->calificacion.erase(c);
+    this->realiza.erase(c);
+    this->califica.erase(c);
+}
+bool Usuario::operator<(const Usuario& otra) const {
+    return this->nickname < otra.nickname;
 }

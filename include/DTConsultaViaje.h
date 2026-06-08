@@ -2,6 +2,7 @@
 #define DT_CONSULTA_VIAJE_H
 
 #include "DTFecha.h"
+#include "Usuario.h"
 #include <string>
 
 class DTConsultaViaje {
@@ -22,6 +23,7 @@ public:
   std::string getConductor();
   float getCalificacionProm();
   float getPrecioTotal();
+  bool operator<(const DTConsultaViaje& other) const;
 };
 
 #endif

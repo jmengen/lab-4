@@ -1,21 +1,21 @@
 #include "../include/DTVehiculosConductor.h"
 
-DTVehiculosConductor::DTVehiculosConductor(std::string matricula, std::string modelo, int capacidad) {
+DTVehiculosConductor::DTVehiculosConductor(std::string matricula, std::string marca, int capacidad) {
     this->matricula = matricula;
-    this->modelo = modelo;
+    this->marca = marca;
     this->capacidad = capacidad;
 }
 
-std::string DTVehiculosConductor::getMatricula() {
-    return matricula;
+std::string DTVehiculosConductor::getMatricula() const{
+    return this->matricula;
 }
 
-std::string DTVehiculosConductor::getModelo() {
-    return modelo;
+std::string DTVehiculosConductor::getMarca() const{
+    return this->marca;
 }
 
-int DTVehiculosConductor::getCapacidad() {
-    return capacidad;
+int DTVehiculosConductor::getCapacidad() const{
+    return this->capacidad;
 }
 
 bool DTVehiculosConductor::operator<(const DTVehiculosConductor& otro) const {
