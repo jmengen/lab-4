@@ -35,11 +35,16 @@ set<DTUsuarioViaje> ControlCalificarUsuario::listarUsuariosViaje(int codigo){
     ManejadorViajes* m = ManejadorViajes::getInstance();
     Viaje* vi = m->getViaje(codigo);
     return vi->obtenerParticipantes(this->nickRecordado);
+    this->codRecordado = codigo;
 }
 
-bool calificarUsuario(string nicknameCalificado, int calificacion){
+bool ControlCalificarUsuario::calificarUsuario(string nicknameCalificado, int calificacion){
     ManejadorUsuarios* m = ManejadorUsuarios::getInstance();
+    Usuario* uRealiza = m->getUsuario(this->nickRecordado);
     Usuario* uCalificado = m->getUsuario(nicknameCalificado);
+    ManejadorViajes* v = ManejadorViajes::getInstance();
+    Viaje* vi = v->getViaje(this->codRecordado);
+    
     return false;
     //falta terminarlo
 }

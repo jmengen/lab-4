@@ -36,6 +36,10 @@ void Viaje::asociarReserva(Reserva* res){
     this->reservas.insert(res);
 }
 
+Reserva* Viaje::asociarReservas(Usuario* u1, Usuario* u2){
+    //falta implementar
+}
+
 int Viaje::getCodigo() const{
     return this->codigo;
 }

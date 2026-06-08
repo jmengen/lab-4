@@ -15,6 +15,8 @@ class ControlCalificarUsuario{
         static ControlCalificarUsuario* instancia;
         ControlCalificarUsuario() = default;
         string nickRecordado;
+        int codRecordado;
+
 
     public:
         static ControlCalificarUsuario* getInstance();
