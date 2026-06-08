@@ -1,9 +1,9 @@
 #include "../include/ControlEliminarViaje.h"
-#include "DTListarViaje.h"
+#include "../include/DTListarViaje.h"
+#include "../include/DTDetalleViaje.h"
+#include "../include/ManejadorViajes.h"
+#include "../include/Viaje.h"
 #include <set>
-#include "DTDetalleViaje.h"
-#include "../include/ManejadorViaje.h"
-#include "Viaje.h"
 
 std::set<DTListarViaje> ControlEliminarViaje::listarViajes(){
     ManejadorViajes* m = ManejadorViajes::getInstance();
@@ -22,6 +22,7 @@ void ControlEliminarViaje::eliminarViaje(){
     ManejadorViajes* m = ManejadorViajes::getInstance();
     Viaje*v = m->getViaje(this->codigoRecordado);
     v->eliminarViaje();
+    m->quitarViaje(this->codigoRecordado);
 }
 
 void ControlEliminarViaje::cancelarEliminarViaje(){

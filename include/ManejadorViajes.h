@@ -27,7 +27,7 @@ class ManejadorViajes {
 
         std::set<DTListarViaje> getDTListarViajes();
         Viaje* crearViaje(DTFecha fecha, std::string origen, std::string destino, int asientos, float precio,Vehiculo* vehiculo);
-        
+        void quitarViaje(int codigo);
 };
 
 #endif

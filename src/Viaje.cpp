@@ -5,7 +5,7 @@
 #include "../include/Vehiculo.h"
 #include "DTDetalleVehiculo.h"
 #include "../include/Vehiculo.h"
-#include "ManejadorViaje.h"
+#include "ManejadorViajes.h"
 #include "Reserva.h"
 
 Viaje::Viaje(int codigo, DTFecha fecha, std::string origen, std::string destino, int asientosPublicados, float precio, Vehiculo* vehiculo) {
@@ -92,7 +92,7 @@ void Viaje::eliminarViaje(){
         this->vehiculo->quitarViaje(this);
     }
     std::set<Reserva*>::iterator it;
-    for (it = this->reserva.begin(); it!= this->reserva.end();it++){
+    for (it = this->reservas.begin(); it!= this->reservas.end();it++){
        (*it)->eliminarReserva();
     }
 }
