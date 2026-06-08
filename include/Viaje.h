@@ -4,6 +4,8 @@
 #include "DTFecha.h"
 #include <string>
 #include "DTListarViaje.h"
+#include "DTDetalleViaje.h"
+
 class Vehiculo;
 class Viaje {
 private:
@@ -19,6 +21,7 @@ public:
     ~Viaje();
     DTListarViaje getDTListarViaje();
     DTFecha getFecha();
+    DTDetalleViaje getDTDetalleViaje();
 };
 
 #endif

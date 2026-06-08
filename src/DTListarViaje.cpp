@@ -8,19 +8,19 @@ DTListarViaje::DTListarViaje(int codigo, DTFecha fecha, std::string origen, std:
     this->conductor = conductor;
 }
 
-int DTListarViaje::getCodigo() { 
+int DTListarViaje::getCodigo() const { 
     return codigo; 
 }
-DTFecha DTListarViaje::getFecha() { 
+DTFecha DTListarViaje::getFecha() const { 
     return fecha; 
 }
-std::string DTListarViaje::getOrigen() { 
+std::string DTListarViaje::getOrigen() const { 
     return origen; 
 }
-std::string DTListarViaje::getDestino() { 
+std::string DTListarViaje::getDestino() const { 
     return destino; 
 }
-std::string DTListarViaje::getConductor() {
+std::string DTListarViaje::getConductor() const {
      return conductor; 
 }
 bool DTListarViaje::operator<(const DTListarViaje& otro) const {

@@ -3,6 +3,7 @@
 #include <set>
 #include "Viaje.h"
 #include "../include/Conductor.h"
+#include "DTDetalleVehiculo.h"
 Vehiculo::Vehiculo(std::string matricula, int capacidad, std::string marca, std::string modelo, TipoVehiculo tipo) {
     this->matricula = matricula;
     this->capacidad = capacidad;
@@ -65,4 +66,7 @@ void Vehiculo::asociarViaje(Viaje* viaje){
 }
 void Vehiculo::setConductor(Conductor* conductor) {
     this->conductor = conductor;
+}
+DTDetalleVehiculo Vehiculo::getDTDetalleVehiculo() {
+    return DTDetalleVehiculo(this->matricula, this->capacidad, this->marca, this->modelo, this->tipo);
 }

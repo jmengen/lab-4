@@ -21,6 +21,7 @@ public:
     std::set<DTListarViaje> getDTListarViajes();
     Viaje* crearViaje(DTFecha fecha, std::string origen, std::string destino, int asientos, float precio,Vehiculo* vehiculo);
     Viaje* getViaje(int codigo);
+    bool existeViaje(int codigo);
 };
 
 #endif

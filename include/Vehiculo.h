@@ -7,6 +7,7 @@
 #include "Viaje.h"
 #include <set>
 #include "DTVehiculosConductor.h"
+#include "DTDetalleVehiculo.h"
 
 class Conductor;
 class Vehiculo {
@@ -32,6 +33,7 @@ public:
     std::string getNickConductor();
     void asociarViaje(Viaje* viaje);
     void setConductor(Conductor* conductor);
+    DTDetalleVehiculo getDTDetalleVehiculo();
 };
 
 #endif

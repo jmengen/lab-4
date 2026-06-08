@@ -1,15 +1,14 @@
 #include "../include/ManejadorViaje.h"
-#include "Viaje.h"
+#include "../include/Viaje.h"
 #include <set>
 
 ManejadorViajes* ManejadorViajes::instancia = nullptr;
 
-ManejadorViajes* ManejadorViajes::getInstance() {
-    if (instancia == nullptr) {
+ManejadorViajes *ManejadorViajes::getInstance(){
+    if(instancia == nullptr){
         instancia = new ManejadorViajes();
         instancia->SiguienteCodigo = 1;
     }
-
     return instancia;
 }
 
@@ -24,6 +23,17 @@ std::set<Viaje*> ManejadorViajes::getViajes() {
     return res;
 }
 
+bool ManejadorViajes::existeViaje(int codigo){
+        return this->viajes.find(codigo) != this->viajes.end();
+}
+
+Viaje* ManejadorViajes::getViaje(int codigo){
+    if (existeViaje(codigo))
+        return this->viajes[codigo];
+    else 
+        return nullptr;
+}
+
 std::set<DTListarViaje> ManejadorViajes::getDTListarViajes() {
     std::set<DTListarViaje> res;
     std::map<int, Viaje*>::iterator it;
@@ -36,7 +46,7 @@ std::set<DTListarViaje> ManejadorViajes::getDTListarViajes() {
     return res;
 }
 
-Viaje* ManejadorViajes::crearViaje(DTFecha fecha, std::string origen, std::string destino, int asientos, float precio,Vehiculo* vehiculo) {
+Viaje* ManejadorViajes::crearViaje(DTFecha fecha, std::string origen, std::string destino, int asientos, float precio,Vehiculo* vehiculo){
     int codigo = this->SiguienteCodigo;
     this->SiguienteCodigo++;
 
@@ -44,15 +54,4 @@ Viaje* ManejadorViajes::crearViaje(DTFecha fecha, std::string origen, std::strin
     this->viajes.insert({codigo, viaje});
 
     return viaje;
-}
-
-Viaje* ManejadorViajes::getViaje(int codigo) {
-    std::map<int, Viaje*>::iterator it;
-    it = this->viajes.find(codigo);
-
-    if (it != this->viajes.end()) {
-        return it->second;
-    }
-
-    return nullptr;
 }

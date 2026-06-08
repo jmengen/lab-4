@@ -15,11 +15,11 @@ private:
 public:
     DTListarViaje(int codigo, DTFecha fecha, std::string origen, std::string destino, std::string conductor);
 
-    int getCodigo();
-    DTFecha getFecha();
-    std::string getOrigen();
-    std::string getDestino();
-    std::string getConductor();
+    int getCodigo() const;
+    DTFecha getFecha() const;
+    std::string getOrigen() const;
+    std::string getDestino() const;
+    std::string getConductor() const;
     bool operator<(const DTListarViaje& otro) const;
 
 };
