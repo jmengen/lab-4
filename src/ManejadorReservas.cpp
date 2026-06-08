@@ -43,3 +43,8 @@ Reserva* ManejadorReservas::obtenerReservaEntre(Pasajero* pas, Viaje * vi){
     }
     return nullptr;
 }
+
+void ManejadorReservas::quitarReserva(Reserva* reserva){
+    this->reservas.erase(reserva);
+    delete reserva;
+}

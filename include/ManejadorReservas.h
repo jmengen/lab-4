@@ -21,6 +21,7 @@ class ManejadorReservas {
 
         bool NoExisteReserva(Viaje vi, Pasajero p);
         Reserva* CrearReserva(Viaje * vi, Pasajero * p, int asientosReservados);
+        void quitarReserva(Reserva* reserva);
 };
 
 #endif

@@ -7,7 +7,7 @@
 
 class ControlEliminarViaje {
     private:
-        int codigoRecordado;
+        int codigoRecordado = -1;
     public:
         std::set<DTListarViaje>listarViajes();
         DTDetalleViaje detalleViaje(int codigo);

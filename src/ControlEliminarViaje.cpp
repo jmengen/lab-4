@@ -11,18 +11,27 @@ std::set<DTListarViaje> ControlEliminarViaje::listarViajes(){
 }
 
 DTDetalleViaje ControlEliminarViaje::detalleViaje(int codigo){
-    this->codigoRecordado = codigo;
-
     ManejadorViajes *m = ManejadorViajes::getInstance();
     Viaje* v = m->getViaje(codigo);
+    this->codigoRecordado = codigo;
     return v->getDTDetalleViaje();
 }
 
 void ControlEliminarViaje::eliminarViaje(){
+    if (this->codigoRecordado < 0) {
+        return;
+    }
+
     ManejadorViajes* m = ManejadorViajes::getInstance();
-    Viaje*v = m->getViaje(this->codigoRecordado);
+    Viaje* v = m->getViaje(this->codigoRecordado);
+    if (v == nullptr) {
+        this->codigoRecordado = -1;
+        return;
+    }
+
     v->eliminarViaje();
     m->quitarViaje(this->codigoRecordado);
+    this->codigoRecordado = -1;
 }
 
 void ControlEliminarViaje::cancelarEliminarViaje(){

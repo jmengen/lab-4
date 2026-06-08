@@ -32,3 +32,16 @@ bool ManejadorCalificaciones::existeCalifEntre(Usuario* uRealiza, Usuario* uCali
     }
    return false; 
 }
+
+void ManejadorCalificaciones::quitarCalificacion(Calificacion* c){
+    std::map<std::string, std::list<Calificacion*>>::iterator it;
+    for (it = this->CalificacionRecibidas.begin(); it != this->CalificacionRecibidas.end();) {
+        it->second.remove(c);
+        if (it->second.empty()) {
+            it = this->CalificacionRecibidas.erase(it);
+        } else {
+            ++it;
+        }
+    }
+    delete c;
+}

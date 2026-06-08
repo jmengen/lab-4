@@ -61,5 +61,10 @@ Viaje* ManejadorViajes::crearViaje(DTFecha fecha, std::string origen, std::strin
 }
 
 void ManejadorViajes::quitarViaje(int codigo) {
-    this->viajes.erase(codigo);
+    std::map<int, Viaje*>::iterator it = this->viajes.find(codigo);
+    if (it != this->viajes.end()) {
+        Viaje* viaje = it->second;
+        this->viajes.erase(it);
+        delete viaje;
+    }
 }
