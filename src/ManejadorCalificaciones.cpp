@@ -18,6 +18,7 @@ Calificacion * ManejadorCalificaciones::crearCalificacion(DTFecha fecha, int pun
     r->addCalificacion(c);
     std::string nickCalificado = uCalificado->getNickname();
     this->CalificacionRecibidas[nickCalificado].push_back(c);
+    return c;
 }
 
 bool ManejadorCalificaciones::existeCalifEntre(Usuario* uRealiza, Usuario* uCalificado, int codigoViaje){

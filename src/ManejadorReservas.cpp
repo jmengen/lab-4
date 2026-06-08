@@ -40,5 +40,6 @@ Reserva* ManejadorReservas::obtenerReservaEntre(Pasajero* pas, Viaje * vi){
         if(actual->esReserva(*vi,*pas)){
             return actual;
         }
-    } 
+    }
+    return nullptr;
 }

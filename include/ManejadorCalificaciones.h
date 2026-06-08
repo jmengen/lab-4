@@ -7,8 +7,7 @@
 #include <list>
 using namespace std;
 
-class ManejadorCalificaciones
-{
+class ManejadorCalificaciones{
 private:
     static ManejadorCalificaciones *instancia;
     map<string, list<Calificacion*>> CalificacionRecibidas;
