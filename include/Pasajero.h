@@ -5,6 +5,7 @@
 #include <string>
 #include "../include/Reserva.h"
 #include <set>
+class Reserva;
 
 class Pasajero : public Usuario {
 private:
@@ -20,5 +21,6 @@ public:
     std::set<DTListarViaje> obtenerDTListarViaje() override;
     
     ~Pasajero();
+    void quitarReserva(Reserva* r);
 };
 #endif

@@ -20,6 +20,7 @@ private:
 public:
     Reserva(Viaje * vi, Pasajero * p, int asientosReservados, DTFecha fecha);
     ~Reserva();
+    void eliminarReserva();
     bool esReserva(Viaje v, Pasajero p) const;
     int getAsientosReservados() const;
 

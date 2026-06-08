@@ -3,7 +3,9 @@
 #include <string>
 
 #include "DTFecha.h"
+
 class Usuario;
+
 class Calificacion {
 private:
     DTFecha fecha;
@@ -16,6 +18,7 @@ public:
     int getPuntaje() const;
     bool esCalif(std::string uRealiza, std::string uCalificado);
     ~Calificacion();
+    void eliminarCalificacion();
 };
 
 #endif

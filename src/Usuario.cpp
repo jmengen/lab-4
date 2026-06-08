@@ -1,5 +1,6 @@
 #include "../include/Usuario.h"
-#include "../include/Calificacion.h"
+#include <set>
+#include "Calificacion.h"
 
 Usuario::Usuario(std::string nickname, std::string nombre, std::string contrasena, std::string email) {
     this->nickname = nickname;
@@ -55,6 +56,10 @@ void Usuario::addCalRea (Calificacion* c){
 
 Usuario::~Usuario() {}
 
+void Usuario::quitarCalificacion(Calificacion* c){
+    this->realiza.erase(c);
+    this->califica.erase(c);
+}
 bool Usuario::operator<(const Usuario& otra) const {
     return this->nickname < otra.nickname;
 }

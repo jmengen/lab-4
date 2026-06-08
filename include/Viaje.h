@@ -4,11 +4,13 @@
 #include "Reserva.h"
 #include "DTFecha.h"
 #include "DTListarViaje.h"
+#include "DTDetalleViaje.h"
 #include "DTConsultaViaje.h"
 #include "DTUsuarioViaje.h"
 #include <string>
 #include <set>
 
+class Usuario;
 class Vehiculo;
 
 class Viaje {
@@ -28,6 +30,8 @@ public:
     void asociarReserva(Reserva* res);
     Reserva* asociarReservas(Usuario* u1, Usuario* u2);
     DTFecha getFecha();
+    DTDetalleViaje getDTDetalleViaje();
+    void eliminarViaje();
     int getCodigo() const;
 
     bool ViajeBuscado(DTFecha fecha, std::string origen, std::string destino, int asientos);

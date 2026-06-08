@@ -20,3 +20,12 @@ bool Calificacion::esCalif(std::string uRealiza, std::string uCalificado){
 
 
 Calificacion::~Calificacion() {}
+
+void Calificacion::eliminarCalificacion(){
+    if (this->usuarioRealiza != nullptr) {
+        this->usuarioRealiza->quitarCalificacion(this);
+    }
+    if (this->usuarioCalificado != nullptr) {
+        this->usuarioCalificado->quitarCalificacion(this);
+    }
+}

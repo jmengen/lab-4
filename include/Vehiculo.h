@@ -7,6 +7,7 @@
 #include "Viaje.h"
 #include <set>
 #include "DTVehiculosConductor.h"
+#include "DTDetalleVehiculo.h"
 
 class Conductor;
 
@@ -36,6 +37,8 @@ public:
     
     void asociarViaje(Viaje* viaje);
     void setConductor(Conductor* conductor);
+    DTDetalleVehiculo getDTDetalleVehiculo();
+    void quitarViaje(Viaje* vi);
 
     DTVehiculosConductor getDTVehiculoConductor() const;
     std::set<DTListarViaje> getDTListarViaje() const;

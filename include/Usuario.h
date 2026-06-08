@@ -35,6 +35,7 @@ public:
     bool operator<(const Usuario& otra) const;
     
     virtual ~Usuario();
+    void quitarCalificacion(Calificacion* c);
 };
 
 #endif

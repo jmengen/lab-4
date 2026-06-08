@@ -50,7 +50,7 @@ std::set<DTListarViaje> ManejadorViajes::getDTListarViajes() {
     return res;
 }
 
-Viaje* ManejadorViajes::crearViaje(DTFecha fecha, std::string origen, std::string destino, int asientos, float precio,Vehiculo* vehiculo) {
+Viaje* ManejadorViajes::crearViaje(DTFecha fecha, std::string origen, std::string destino, int asientos, float precio,Vehiculo* vehiculo){
     int codigo = this->SiguienteCodigo;
     this->SiguienteCodigo++;
 
@@ -60,3 +60,6 @@ Viaje* ManejadorViajes::crearViaje(DTFecha fecha, std::string origen, std::strin
     return viaje;
 }
 
+void ManejadorViajes::quitarViaje(int codigo) {
+    this->viajes.erase(codigo);
+}

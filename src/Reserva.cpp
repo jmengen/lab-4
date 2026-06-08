@@ -1,6 +1,7 @@
 #include "../include/Reserva.h"
 #include "../include/Pasajero.h"
 #include "../include/Viaje.h"
+#include "../include/Calificacion.h"
 
 Reserva::Reserva(Viaje * vi, Pasajero * p, int asientosReservados, DTFecha fecha) {
     this->asientosReservados = asientosReservados;
@@ -11,6 +12,15 @@ Reserva::Reserva(Viaje * vi, Pasajero * p, int asientosReservados, DTFecha fecha
 
 Reserva::~Reserva() {}
 
+void Reserva::eliminarReserva(){
+    if (this->pasajero != nullptr) {
+        this->pasajero->quitarReserva(this);
+    }
+    std::set<Calificacion*>::iterator it;
+    for (it = this->calificaciones.begin();it != this->calificaciones.end(); it++){
+        (*it)->eliminarCalificacion();
+    }
+}
 int Reserva::getAsientosReservados() const{
     return this->asientosReservados;
 }
