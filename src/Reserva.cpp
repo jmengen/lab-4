@@ -51,3 +51,8 @@ bool Reserva::operator<(const Reserva& otra) const {
 void Reserva::addCalificacion(Calificacion *c){
     this->calificaciones.insert(c);
 }
+
+bool Reserva::esReservaDelViaje(int codigoViaje) const{
+    return (this->viaje->getCodigo() == codigoViaje);
+}
+    

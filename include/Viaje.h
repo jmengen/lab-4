@@ -28,7 +28,6 @@ private:
 public:
     Viaje(int codigo, DTFecha fecha, std::string origen, std::string destino, int asientosPublicados, float precio, Vehiculo* vehiculo);
     void asociarReserva(Reserva* res);
-    Reserva* asociarReservas(Usuario* u1, Usuario* u2);
     DTFecha getFecha();
     DTDetalleViaje getDTDetalleViaje();
     void eliminarViaje();

@@ -4,6 +4,7 @@
 #include "ManejadorUsuarios.h"
 #include "ManejadorViajes.h"
 #include "ManejadorCalificaciones.h"
+#include "ManejadorReservas.h"
 #include "DTUsuario.h"
 #include "DTListarViaje.h"
 #include "DTUsuarioViaje.h"
@@ -20,6 +21,7 @@ class ControlCalificarUsuario{
 
     public:
         static ControlCalificarUsuario* getInstance();
+        
         set<DTUsuario> ListarUsuarios();
         set<DTListarViaje> listarViajes(string nickname);
         set<DTUsuarioViaje> listarUsuariosViaje(int codigo);

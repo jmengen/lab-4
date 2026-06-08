@@ -1,4 +1,5 @@
 #include "../include/ControlCalificarUsuario.h"
+#include "../include/ControladorFechaActual.h"
 using namespace std;
 
 
@@ -34,8 +35,8 @@ set<DTListarViaje> ControlCalificarUsuario::listarViajes(string nickname){
 set<DTUsuarioViaje> ControlCalificarUsuario::listarUsuariosViaje(int codigo){
     ManejadorViajes* m = ManejadorViajes::getInstance();
     Viaje* vi = m->getViaje(codigo);
-    return vi->obtenerParticipantes(this->nickRecordado);
     this->codRecordado = codigo;
+    return vi->obtenerParticipantes(this->nickRecordado);
 }
 
 bool ControlCalificarUsuario::calificarUsuario(string nicknameCalificado, int calificacion){
@@ -44,7 +45,29 @@ bool ControlCalificarUsuario::calificarUsuario(string nicknameCalificado, int ca
     Usuario* uCalificado = m->getUsuario(nicknameCalificado);
     ManejadorViajes* v = ManejadorViajes::getInstance();
     Viaje* vi = v->getViaje(this->codRecordado);
-    
-    return false;
-    //falta terminarlo
+
+    ManejadorCalificaciones* c = ManejadorCalificaciones::getInstance();
+    bool cond = c->existeCalifEntre(uRealiza, uCalificado, vi->getCodigo());
+
+    if (cond){
+        return false;
+    } else {
+        ControladorFechaActual* f = ControladorFechaActual::getInstance();
+        DTFecha fecha = f->getFecha();
+
+        ManejadorReservas* mr = ManejadorReservas::getInstance();
+        Reserva * r;
+        if (uRealiza->getTipoUsuario() == TipoPasajero){
+            r = mr->obtenerReservaEntre(static_cast<Pasajero*>(uRealiza), vi);
+        } else {
+            r = mr->obtenerReservaEntre(static_cast<Pasajero*>(uCalificado), vi);
+        }
+
+        Calificacion * PuntCalif = c->crearCalificacion(fecha, calificacion, uRealiza, uCalificado, r);
+
+        this->nickRecordado = "";
+        this->codRecordado = 0;
+
+        return true;
+    }
 }

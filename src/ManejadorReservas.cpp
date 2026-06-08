@@ -32,3 +32,13 @@ Reserva* ManejadorReservas::CrearReserva(Viaje * vi, Pasajero * p, int asientosR
     this->reservas.insert(r);
     return r;
 }
+
+Reserva* ManejadorReservas::obtenerReservaEntre(Pasajero* pas, Viaje * vi){
+    std::set<Reserva*>::iterator it;
+    for (it = this->reservas.begin(); it != this->reservas.end(); ++it){
+        Reserva* actual = *it;
+        if(actual->esReserva(*vi,*pas)){
+            return actual;
+        }
+    } 
+}

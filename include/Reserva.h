@@ -22,6 +22,7 @@ public:
     ~Reserva();
     void eliminarReserva();
     bool esReserva(Viaje v, Pasajero p) const;
+    bool esReservaDelViaje(int codigoViaje) const;
     int getAsientosReservados() const;
 
     DTListarViaje getDTViaje() const;

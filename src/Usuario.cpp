@@ -53,7 +53,6 @@ void Usuario::addCalRea (Calificacion* c){
     this->realiza.insert(c);
 }
 
-
 Usuario::~Usuario() {}
 
 void Usuario::quitarCalificacion(Calificacion* c){

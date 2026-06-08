@@ -16,7 +16,8 @@ private:
     
 public:
     static ManejadorCalificaciones* getInstance();
-    void crearCalificacion(DTFecha fecha, int puntaje, Usuario* uRealiza, Usuario* uCalificado, Reserva* r);
+    Calificacion * crearCalificacion(DTFecha fecha, int puntaje, Usuario* uRealiza, Usuario* uCalificado, Reserva* r);
+    bool existeCalifEntre(Usuario* uRealiza, Usuario* uCalificado, int codigoViaje);
 
     ~ManejadorCalificaciones();
 };

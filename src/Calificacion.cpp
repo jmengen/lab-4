@@ -1,11 +1,14 @@
 #include "../include/Calificacion.h"
 #include "../include/Usuario.h"
+#include "../include/Reserva.h"
 
-Calificacion::Calificacion(DTFecha fecha, int puntaje, Usuario* uCalificado,Usuario* uRealiza){
+
+Calificacion::Calificacion(DTFecha fecha, int puntaje, Usuario* uCalificado, Usuario* uRealiza, Reserva* reserva){
     this->fecha = fecha;
     this->puntaje = puntaje;
     this->usuarioCalificado = uCalificado;
     this->usuarioRealiza = uRealiza;
+    this->reserva = reserva;
 }
 
 int Calificacion::getPuntaje() const{
@@ -13,9 +16,15 @@ int Calificacion::getPuntaje() const{
 }
 
 bool Calificacion::esCalif(std::string uRealiza, std::string uCalificado){
-    if ((this->usuarioCalificado->getNickname() == uCalificado) && (this->usuarioRealiza->getNickname() == uRealiza))
-        return true;
-    else return false; 
+    return (this->usuarioCalificado->getNickname() == uCalificado) && (this->usuarioRealiza->getNickname() == uRealiza);
+}
+
+bool Calificacion::esCalifEntre(Usuario* uRealiza, Usuario* uCalificado, int codigoViaje){
+    if ((this->usuarioCalificado->getNickname() == uCalificado->getNickname()) && (this->usuarioRealiza->getNickname() == uRealiza->getNickname())){
+        return this->reserva->esReservaDelViaje(codigoViaje);
+    } else {
+        return false;
+    }
 }
 
 
