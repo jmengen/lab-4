@@ -1,4 +1,6 @@
 #include "../include/Usuario.h"
+#include <set>
+#include "Calificacion.h"
 
 Usuario::Usuario(std::string nickname, std::string nombre, std::string contrasena, std::string email) {
     this->nickname = nickname;
@@ -24,3 +26,7 @@ std::string Usuario::getEmail() const{
 }
 
 Usuario::~Usuario() {}
+
+void Usuario::quitarCalificacion(Calificacion* c){
+     this->calificacion.erase(c);
+}

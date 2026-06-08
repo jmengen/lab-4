@@ -2,6 +2,8 @@
 #include "../include/Vehiculo.h"
 #include "DTDetalleVehiculo.h"
 #include "../include/Vehiculo.h"
+#include "ManejadorViaje.h"
+#include "Reserva.h"
 
 Viaje::Viaje(int codigo, DTFecha fecha, std::string origen, std::string destino, int asientosPublicados, float precio, Vehiculo* vehiculo) {
     this->codigo = codigo;
@@ -26,4 +28,13 @@ DTDetalleViaje Viaje::getDTDetalleViaje(){
     std::vector<DTDetalleReserva> res;
     return DTDetalleViaje(this->codigo, this->fecha, this->origen, this->destino,  this->asientosPublicados,  this->precio, this->vehiculo->getDTDetalleVehiculo(), res);
 }
-
+   
+void Viaje::eliminarViaje(){
+    if (this->vehiculo != nullptr) {
+        this->vehiculo->quitarViaje(this);
+    }
+    std::set<Reserva*>::iterator it;
+    for (it = this->reserva.begin(); it!= this->reserva.end();it++){
+       (*it)->eliminarReserva();
+    }
+}

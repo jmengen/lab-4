@@ -2,6 +2,9 @@
 #define USUARIO_H
 #include "TipoUsuario.h"
 #include <string>
+#include <set>
+
+class Calificacion;
 
 class Usuario {
 protected:
@@ -9,7 +12,7 @@ protected:
     std::string nombre;
     std::string contrasena;
     std::string email;
-
+    std::set<Calificacion*> calificacion;
 public:
     Usuario(std::string nickname, std::string nombre, std::string contrasena, std::string email);
     virtual TipoUsuario getTipoUsuario() const = 0;
@@ -19,6 +22,7 @@ public:
     std::string getEmail() const;
     
     virtual ~Usuario();
+    void quitarCalificacion(Calificacion* c);
 };
 
 #endif

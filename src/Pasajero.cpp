@@ -1,4 +1,6 @@
 #include "../include/Pasajero.h"
+#include "Reserva.h"
+#include <set>
 
 Pasajero::Pasajero(std::string nickname, std::string nombre, std::string contrasena, std::string email, std::string documento)
     : Usuario(nickname, nombre, contrasena, email) {
@@ -13,3 +15,7 @@ TipoUsuario Pasajero::getTipoUsuario() const {
 }
 
 Pasajero::~Pasajero() {}
+
+void Pasajero::quitarReserva(Reserva* r){
+     this->reserva.erase(r);
+}

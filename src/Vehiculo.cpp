@@ -70,3 +70,7 @@ void Vehiculo::setConductor(Conductor* conductor) {
 DTDetalleVehiculo Vehiculo::getDTDetalleVehiculo() {
     return DTDetalleVehiculo(this->matricula, this->capacidad, this->marca, this->modelo, this->tipo);
 }
+
+void Vehiculo::quitarViaje(Viaje* vi) {
+    this->viajes.erase(vi);
+}

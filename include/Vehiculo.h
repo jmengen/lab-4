@@ -34,6 +34,7 @@ public:
     void asociarViaje(Viaje* viaje);
     void setConductor(Conductor* conductor);
     DTDetalleVehiculo getDTDetalleVehiculo();
+    void quitarViaje(Viaje* vi);
 };
 
 #endif

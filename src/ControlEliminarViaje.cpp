@@ -19,7 +19,11 @@ DTDetalleViaje ControlEliminarViaje::detalleViaje(int codigo){
 }
 
 void ControlEliminarViaje::eliminarViaje(){
+    ManejadorViajes* m = ManejadorViajes::getInstance();
+    Viaje*v = m->getViaje(this->codigoRecordado);
+    v->eliminarViaje();
 }
 
 void ControlEliminarViaje::cancelarEliminarViaje(){
+    this->codigoRecordado = -1;
 }
