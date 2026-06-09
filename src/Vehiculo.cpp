@@ -3,7 +3,7 @@
 #include <set>
 #include "../include/Viaje.h"
 #include "../include/Conductor.h"
-#include "DTDetalleVehiculo.h"
+#include "../include/DTDetalleVehiculo.h"
 Vehiculo::Vehiculo(std::string matricula, int capacidad, std::string marca, std::string modelo, TipoVehiculo tipo) {
     this->matricula = matricula;
     this->capacidad = capacidad;

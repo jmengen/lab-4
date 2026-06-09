@@ -11,8 +11,9 @@
 #include <set>
 #include <string>
 #include <vector>
-#include "DTListarViaje.h"
-#include "Viaje.h"
+
+#include "../include/DTListarViaje.h"
+#include "../include/Viaje.h"
 
 #include "../include/ControlAltaUsuario.h"
 #include "../include/ControlAltaViaje.h"
@@ -171,6 +172,12 @@ void Menu::altaUsuario() {
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         }
     }
+    
+    if (usuarioOk) {
+        std::cout << "Usuario registrado exitosamente.\n";
+    } else {
+        std::cout << "Error al registrar el usuario.\n";
+    }
 }
 
 void Menu::altaViaje() {
@@ -186,7 +193,7 @@ void Menu::altaViaje() {
     std::set<DTVehiculosConductor>::iterator it;
     for (it = ColeccionDTVC.begin(); it != ColeccionDTVC.end(); ++it){
         DTVehiculosConductor actual = *it;
-        std::cout << "> Matricula: " << actual.getMatricula() << ", Marca: " << actual.getMarca()  << ", Capacidad: " << actual.getCapacidad();
+        std::cout << "> Matricula: " << actual.getMatricula() << ", Marca: " << actual.getMarca()  << ", Capacidad: " << actual.getCapacidad() << "\n";
         // Recorrer la coleccion y mostrar "> Matricula: xx, Marca: yy, Capacidad: www"
     } 
 
@@ -194,7 +201,7 @@ void Menu::altaViaje() {
     bool matriculaValida = false;
 
     ManejadorVehiculos* manejve = ManejadorVehiculos::getInstancia();
-    if (!manejve->existeVehiculo(matricula)){
+    if (manejve->existeVehiculo(matricula)){
         matriculaValida = true; //Validar matricula en listado
     }
     

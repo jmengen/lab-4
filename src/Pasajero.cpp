@@ -1,5 +1,5 @@
 #include "../include/Pasajero.h"
-#include "Reserva.h"
+#include "../include/Reserva.h"
 #include <set>
 
 Pasajero::Pasajero(std::string nickname, std::string nombre, std::string contrasena, std::string email, std::string documento)

@@ -3,11 +3,11 @@
 #include "../include/DTConsultaViaje.h"
 #include <set>
 #include "../include/Vehiculo.h"
-#include "DTDetalleVehiculo.h"
+#include "../include/DTDetalleVehiculo.h"
 #include "../include/Vehiculo.h"
-#include "ManejadorViajes.h"
+#include "../include/ManejadorViajes.h"
 #include "../include/ManejadorReservas.h"
-#include "Reserva.h"
+#include "../include/Reserva.h"
 
 Viaje::Viaje(int codigo, DTFecha fecha, std::string origen, std::string destino, int asientosPublicados, float precio, Vehiculo* vehiculo) {
     this->codigo = codigo;

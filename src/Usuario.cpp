@@ -1,6 +1,6 @@
 #include "../include/Usuario.h"
 #include <set>
-#include "Calificacion.h"
+#include "../include/Calificacion.h"
 
 Usuario::Usuario(std::string nickname, std::string nombre, std::string contrasena, std::string email) {
     this->nickname = nickname;

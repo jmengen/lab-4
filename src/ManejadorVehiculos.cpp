@@ -11,7 +11,7 @@ ManejadorVehiculos *ManejadorVehiculos::getInstancia(){
 }
 
 bool ManejadorVehiculos::existeVehiculo(std::string matricula){
-    return this->vehiculos.find(matricula) != this->vehiculos.end();
+    return this->vehiculos[matricula] != nullptr;
 }
 
 Vehiculo* ManejadorVehiculos::crearVehiculo(std::string matricula, int capacidad, std::string marca, std::string modelo, TipoVehiculo tipo){
@@ -19,17 +19,11 @@ Vehiculo* ManejadorVehiculos::crearVehiculo(std::string matricula, int capacidad
         return nullptr;
     else{
         Vehiculo* ve = new Vehiculo(matricula, capacidad, marca, modelo, tipo);
-        this->vehiculos.insert({matricula,ve});
+        this->vehiculos[matricula] = ve;
         return ve;
     }
 }
 
 Vehiculo* ManejadorVehiculos::getVehiculo(std::string matricula){
-    Vehiculo* v = nullptr;
-    std::map<std::string, Vehiculo*>::iterator it;
-    it = this->vehiculos.find(matricula);
-    if (it != this->vehiculos.end()) {
-        v = it->second;
-    }
-    return v;
+    return this->vehiculos[matricula];
 }
