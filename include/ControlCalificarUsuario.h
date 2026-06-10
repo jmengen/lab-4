@@ -22,7 +22,7 @@ class ControlCalificarUsuario{
     public:
         static ControlCalificarUsuario* getInstance();
         
-        set<DTUsuario> ListarUsuarios();
+        set<DTUsuario> listarUsuarios();
         set<DTListarViaje> listarViajes(string nickname);
         set<DTUsuarioViaje> listarUsuariosViaje(int codigo);
         bool calificarUsuario(string nicknameCalificado, int calificacion);

@@ -13,7 +13,7 @@ ControlCalificarUsuario * ControlCalificarUsuario::getInstance(){
 }
 
 
-set<DTUsuario> ControlCalificarUsuario::ListarUsuarios(){
+set<DTUsuario> ControlCalificarUsuario::listarUsuarios(){
     ManejadorUsuarios* mu = ManejadorUsuarios::getInstance();
     set<Usuario*> usuarios = mu->getUsuarios();
     set<Usuario*>::iterator it;
