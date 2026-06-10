@@ -8,6 +8,7 @@
 #include "../include/ManejadorViajes.h"
 #include "../include/ManejadorReservas.h"
 #include "../include/Reserva.h"
+#include <algorithm>
 
 Viaje::Viaje(int codigo, DTFecha fecha, std::string origen, std::string destino, int asientosPublicados, float precio, Vehiculo* vehiculo) {
     this->codigo = codigo;
@@ -68,7 +69,7 @@ std::set<DTUsuarioViaje> Viaje::obtenerParticipantes(std::string nickRecordado){
         Reserva* actual = *it;
         std::string nick = actual->getNickPasajero();
         if (nick != nickRecordado){
-            ret.insert(DTUsuarioViaje(nick, TipoPasajero));
+            ret.insert(DTUsuarioViaje(nick, TipoPasajero, actual->getAsientosReservados()));
         }  
     } 
 
@@ -86,6 +87,9 @@ DTDetalleViaje Viaje::getDTDetalleViaje(){
     for (it = this->reservas.begin(); it != this->reservas.end(); ++it) {
         res.push_back((*it)->getDTDetalleReserva());
     }
+    std::sort(res.begin(), res.end(), [](DTDetalleReserva a, DTDetalleReserva b) {
+        return a.getAsientosReservados() > b.getAsientosReservados();
+    });
     return DTDetalleViaje(this->codigo, this->fecha, this->origen, this->destino,  this->asientosPublicados,  this->precio, this->vehiculo->getDTDetalleVehiculo(), res);
 }
    
