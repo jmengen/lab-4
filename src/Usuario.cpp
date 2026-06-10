@@ -45,11 +45,11 @@ DTUsuario Usuario::getDTUsuario() const{
     return DTUsuario(this->nickname, this->nombre);
 }
 
-void Usuario::addCalCal (Calificacion* c){
+void Usuario::addCalCal(Calificacion* c){
     this->califica.insert(c);
 }
 
-void Usuario::addCalRea (Calificacion* c){
+void Usuario::addCalRea(Calificacion* c){
     this->realiza.insert(c);
 }
 

@@ -5,6 +5,16 @@
 #include "../include/Viaje.h"
 #include <set>
 
+ControlEliminarViaje* ControlEliminarViaje::instancia = nullptr;
+
+ControlEliminarViaje * ControlEliminarViaje::getInstance(){
+    if(instancia == nullptr){
+        instancia = new ControlEliminarViaje();
+    }
+    return instancia;
+}
+
+
 std::set<DTListarViaje> ControlEliminarViaje::listarViajes(){
     ManejadorViajes* m = ManejadorViajes::getInstance();
     return m->getDTListarViajes();

@@ -195,8 +195,8 @@ void Menu::altaViaje() {
     std::set<DTVehiculosConductor>::iterator it;
     for (it = ColeccionDTVC.begin(); it != ColeccionDTVC.end(); ++it){
         DTVehiculosConductor actual = *it;
-        std::cout << "> Matricula: " << actual.getMatricula() << ", Marca: " << actual.getMarca()  << ", Capacidad: " << actual.getCapacidad() << "\n";
-        // Recorrer la coleccion y mostrar "> Matricula: xx, Marca: yy, Capacidad: www"
+        std::cout << "> Matricula: " << actual.getMatricula() << ", Modelo: " << actual.getModelo()  << ", Capacidad: " << actual.getCapacidad() << "\n";
+        // Recorrer la coleccion y mostrar "> Matricula: xx, Modelo: yy, Capacidad: www"
     } 
 
     std::cout << "Ingrese matricula del vehiculo a utilizar: "; std::getline(std::cin, matricula);
@@ -366,7 +366,6 @@ void Menu::calificarUsuario() {
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     bool nicknameCalificadoValido = false;
 
-    ManejadorUsuarios* manejus = ManejadorUsuarios::getInstance();
     if (!manejus->existeUsuario(nickname)){
         nicknameCalificadoValido = true; //Validar nickname en listado
     }

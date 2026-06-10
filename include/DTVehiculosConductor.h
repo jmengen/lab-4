@@ -6,14 +6,14 @@
 class DTVehiculosConductor {
 private:
   std::string matricula;
-  std::string marca;
+  std::string modelo;
   int capacidad;
 
 public:
   DTVehiculosConductor(std::string matricula, std::string marca, int capacidad);
 
   std::string getMatricula() const;
-  std::string getMarca() const;
+  std::string getModelo() const;
   int getCapacidad() const;
   bool operator<(const DTVehiculosConductor& otro) const;
 };

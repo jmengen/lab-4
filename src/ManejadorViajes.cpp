@@ -55,7 +55,7 @@ Viaje* ManejadorViajes::crearViaje(DTFecha fecha, std::string origen, std::strin
     this->SiguienteCodigo++;
 
     Viaje* viaje = new Viaje(codigo, fecha, origen, destino, asientos, precio, vehiculo);
-    this->viajes.insert({codigo, viaje});
+    this->viajes[codigo] = viaje;
 
     return viaje;
 }

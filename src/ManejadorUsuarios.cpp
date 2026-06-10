@@ -39,10 +39,19 @@ Usuario* ManejadorUsuarios::getUsuario(std::string nickname){
 }
 
 std::set<Pasajero*> ManejadorUsuarios::getPasajeros(){
-    return this->pasajeros;
+    std::set<Pasajero*> ret;
+    std::map <std::string, Usuario*>::iterator it;
+    for (it = this->usuarios.begin(); it != this->usuarios.end(); ++it){
+        Usuario * puntus = it->second;
+        if (puntus->getTipoUsuario() == TipoPasajero){
+            ret.insert(static_cast<Pasajero*>(puntus)); 
+        }
+    }
+
+    return ret;
 }
 
-Pasajero* ManejadorUsuarios::getPasajero (std::string nickname){
+Pasajero* ManejadorUsuarios::getPasajero(std::string nickname){
     Usuario* u = getUsuario(nickname);
     if (u==nullptr)
         return nullptr;
@@ -52,7 +61,7 @@ Pasajero* ManejadorUsuarios::getPasajero (std::string nickname){
         return nullptr;
 }
 
-Conductor* ManejadorUsuarios::getConductor (std::string nickname){
+Conductor* ManejadorUsuarios::getConductor(std::string nickname){
     Usuario* u = getUsuario(nickname);
     if (u==nullptr)
         return nullptr;
