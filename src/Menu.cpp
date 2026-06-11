@@ -513,18 +513,20 @@ void Menu::cargarDatos() {
 
 void Menu::mostrarMenu() {
     int opcion = -1;
-    while (opcion != 0) {
-        std::cout << "\n=== Menu Principal ===\n";
-        std::cout << "1. Alta de usuario\n";
-        std::cout << "2. Alta de viaje\n";
+    while (opcion != 8) {
+        std::cout << "\n=== MENU PRINCIPAL ===\n";
+        std::cout << "1. Alta de Usuario\n";
+        std::cout << "2. Alta de Viaje\n";
         std::cout << "3. Generar Reserva\n";
-        std::cout << "4. Calificar usuario\n";
-        std::cout << "5. Eliminar viaje\n";
-        std::cout << "6. Modificar fecha del sistema\n";
+        std::cout << "4. Calificar Usuario\n";
+        std::cout << "5. Eliminar Viaje\n";
+        std::cout << "6. Administrar Fecha Actual\n";
         std::cout << "7. Cargar Datos\n";
-        std::cout << "0. Salir\n";
-        std::cout << "Seleccione una opcion: ";
-        std::cin >> opcion;
+        std::cout << "8. Salir\n";
+        std::cout << "Ingrese una opcion: ";
+        if (!(std::cin >> opcion)) {
+            return;
+        }
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
         switch (opcion) {
@@ -549,8 +551,8 @@ void Menu::mostrarMenu() {
             case 7:
                 cargarDatos();
                 break;
-            case 0:
-                std::cout << "Saliendo...\n";
+            case 8:
+                std::cout << "Saliendo del sistema...\n";
                 break;
             default:
                 std::cout << "Opcion invalida.\n";
