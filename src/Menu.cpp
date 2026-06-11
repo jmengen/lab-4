@@ -3,7 +3,6 @@
 #include "../include/IControladorFechaActual.h"
 #include "../include/CargaDatos.h"
 #include "../include/DTFecha.h"
-#include "../include/ControlEliminarViaje.h"
 #include "../include/DTDetalleReserva.h"
 #include "../include/DTDetalleVehiculo.h"
 #include <iostream>
@@ -11,14 +10,31 @@
 #include <set>
 #include <string>
 #include <vector>
-#include "DTListarViaje.h"
-#include "Viaje.h"
+
+#include "../include/DTListarViaje.h"
+#include "../include/Viaje.h"
 
 #include "../include/ControlAltaUsuario.h"
 #include "../include/ControlAltaViaje.h"
 #include "../include/ControlGenerarReserva.h"
+#include "../include/ControlCalificarUsuario.h"
+#include "../include/ControlEliminarViaje.h"
+
 #include "../include/ManejadorUsuarios.h"
 #include "../include/ManejadorVehiculos.h"
+
+static std::string obtenerNicknameConductor(std::string nombre) {
+    ManejadorUsuarios* manejus = ManejadorUsuarios::getInstance();
+    std::set<Usuario*> usuarios = manejus->getUsuarios();
+    std::set<Usuario*>::iterator it;
+    for (it = usuarios.begin(); it != usuarios.end(); ++it) {
+        Usuario* usuario = *it;
+        if (usuario->getTipoUsuario() == TipoConductor && usuario->getNombre() == nombre) {
+            return usuario->getNickname();
+        }
+    }
+    return nombre;
+}
 
 void Menu::altaUsuario() {
 
@@ -171,6 +187,10 @@ void Menu::altaUsuario() {
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         }
     }
+    
+    if (!usuarioOk) {
+        std::cout << "Error al registrar el usuario.\n";
+    }
 }
 
 void Menu::altaViaje() {
@@ -186,15 +206,15 @@ void Menu::altaViaje() {
     std::set<DTVehiculosConductor>::iterator it;
     for (it = ColeccionDTVC.begin(); it != ColeccionDTVC.end(); ++it){
         DTVehiculosConductor actual = *it;
-        std::cout << "> Matricula: " << actual.getMatricula() << ", Marca: " << actual.getMarca()  << ", Capacidad: " << actual.getCapacidad();
-        // Recorrer la coleccion y mostrar "> Matricula: xx, Marca: yy, Capacidad: www"
+        std::cout << "> Matricula: " << actual.getMatricula() << ", Modelo: " << actual.getModelo()  << ", Capacidad: " << actual.getCapacidad() << "\n";
+        // Recorrer la coleccion y mostrar "> Matricula: xx, Modelo: yy, Capacidad: www"
     } 
 
     std::cout << "Ingrese matricula del vehiculo a utilizar: "; std::getline(std::cin, matricula);
     bool matriculaValida = false;
 
     ManejadorVehiculos* manejve = ManejadorVehiculos::getInstancia();
-    if (!manejve->existeVehiculo(matricula)){
+    if (manejve->existeVehiculo(matricula)){
         matriculaValida = true; //Validar matricula en listado
     }
     
@@ -231,14 +251,8 @@ void Menu::generarReserva() {
     std::string nickname;
     std::cout << "Ingrese nickname del pasajero: "; std::getline(std::cin, nickname);
 
-    bool nicknameValido = false;
-
     ManejadorUsuarios* manejus = ManejadorUsuarios::getInstance();
-    if (!manejus->existeUsuario(nickname)){
-        nicknameValido = true; //Validar nickname en listado
-    }
-
-    if (!nicknameValido) {
+    if (manejus->getPasajero(nickname) == nullptr) {
         std::cout << "Nickname invalido.\n";
         return;
     }
@@ -257,7 +271,7 @@ void Menu::generarReserva() {
     std::list<DTConsultaViaje>::iterator it2;
     for (it2 = coleccionDTCV.begin(); it2 != coleccionDTCV.end(); ++it2){
         DTConsultaViaje actual = *it2;
-        std::cout << "> Codigo: " << actual.getCodigo() << ", Marca: " << actual.getMarca() << ", Modelo: " << actual.getModelo() << ", Conductor: " << actual.getConductor() << ", CalificacionPromedio: " << actual.getCalificacionProm() << ", PrecioTotal: " << actual.getPrecioTotal();
+        std::cout << "> Codigo: " << actual.getCodigo() << ", Marca: " << actual.getMarca() << ", Modelo: " << actual.getModelo() << ", Conductor: " << obtenerNicknameConductor(actual.getConductor()) << ", CalificacionPromedio: " << actual.getCalificacionProm() << ", PrecioTotal: " << actual.getPrecioTotal() << "\n";
         //Recorrer la coleccion y mostrar: "> Codigo: xx, Marca: yy, Modelo: zzz, Conductor: aaa, CalificacionPromedio: qqq, PrecioTotal: eee"
     } 
 
@@ -294,45 +308,83 @@ void Menu::generarReserva() {
 }
 
 void Menu::calificarUsuario() {
-    //TODO: Coleccion de DTUsuario = controlador->listarUsuarios()
-    //TODO: Recorrer la coleccion y mostrar "> Nickname: xx, Nombre: yyy"
+    ControlCalificarUsuario * controlador = ControlCalificarUsuario::getInstance();
+    std::set<DTUsuario> coleccionUs = controlador->listarUsuarios(); //Coleccion de DTUsuario = controlador->listarUsuarios()
+
+    std::set<DTUsuario>::iterator it;
+    for (it = coleccionUs.begin(); it != coleccionUs.end(); ++it){
+        DTUsuario actual = *it;
+        std::cout << "> Nickname: " << actual.getNickname() << ", Nombre: " << actual.getNombre() << "\n";
+        //Recorrer la coleccion y mostrar "> Nickname: xx, Nombre: yyy"
+    } 
+
     std::string nickname;
     std::cout << "Ingrese su nickname: "; std::getline(std::cin, nickname);
-    bool nicknameValido = false;
-    //TODO: Validar nickname en listado
-    if (!nicknameValido) {
+    ManejadorUsuarios* manejus = ManejadorUsuarios::getInstance();
+    if (!manejus->existeUsuario(nickname)) {
         std::cout << "Nickname invalido.\n";
         return;
     }
 
-    //TODO: Coleccion de DTListarViaje = controlador->listarViajes(nickname)
-    //TODO: Recorrer la coleccion y mostrar "> Codigo: xx, Fecha: dd/mm/aaaa, Origen: zzz, Destino: www, Conductor: aaa"
+    std::set<DTListarViaje> ColeccionDTLV = controlador->listarViajes(nickname); //Coleccion de DTListarViaje = controlador->listarViajes(nickname)
+
+    std::set<DTListarViaje>::iterator it2;
+    for (it2 = ColeccionDTLV.begin(); it2 != ColeccionDTLV.end(); ++it2){
+        DTListarViaje actual = *it2;
+        DTFecha fecha = actual.getFecha();
+        std::cout << "> Codigo: " << actual.getCodigo() << ", Fecha: " << fecha.getDia() << "/" << fecha.getMes() << "/" << fecha.getAnio() << ", Origen: " << actual.getOrigen() << ", Destino: " << actual.getDestino() << ", Conductor: " << actual.getConductor() << "\n";
+        //Recorrer la coleccion y mostrar "> Codigo: xx, Fecha: dd/mm/aaaa, Origen: zzz, Destino: www, Conductor: aaa"
+    } 
+    
     int codigo;
     std::cout << "Ingrese codigo del viaje: "; std::cin >> codigo;
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     bool codigoValido = false;
-    //TODO: Validar codigo en listado
+
+    for (std::set<DTListarViaje>::iterator viajeIt = ColeccionDTLV.begin(); viajeIt != ColeccionDTLV.end(); ++viajeIt) {
+        if (viajeIt->getCodigo() == codigo) {
+            codigoValido = true;
+            break;
+        }
+    }
+
     if (!codigoValido) {
         std::cout << "Codigo invalido.\n";
         return;
     }
 
-    //TODO: Coleccion de DTUsuarioViaje = Controlador->listarUsuariosViaje(codigo)
-    //TODO: Recorrer la coleccion y mostrar "> Nickname: xx, Tipo: yyy"
+    std::set<DTUsuarioViaje> ColeccionDTUV = controlador->listarUsuariosViaje(codigo); // Coleccion de DTUsuarioViaje = Controlador->listarUsuariosViaje(codigo)
+
+    std::set<DTUsuarioViaje>::iterator it3;
+    for (it3 = ColeccionDTUV.begin(); it3 != ColeccionDTUV.end(); ++it3){
+        DTUsuarioViaje actual = *it3;
+        std::string tipo = actual.getTipo() == TipoConductor ? "Conductor" : "Pasajero";
+        std::cout << "> Nickname: " << actual.getNickname() << ", Tipo: " << tipo << "\n";
+        //Recorrer la coleccion y mostrar "> Nickname: xx, Tipo: yyy"
+    }
+
     std::string nicknameCalificado;
     int calificacion;
     std::cout << "Ingrese nickname del usuario a calificar: "; std::getline(std::cin, nicknameCalificado);
     std::cout << "Ingrese calificacion (1-5): "; std::cin >> calificacion;
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     bool nicknameCalificadoValido = false;
-    //TODO: Validar nickname en listado
+
+    for (std::set<DTUsuarioViaje>::iterator usuarioIt = ColeccionDTUV.begin(); usuarioIt != ColeccionDTUV.end(); ++usuarioIt) {
+        DTUsuarioViaje usuario = *usuarioIt;
+        if (usuario.getNickname() == nicknameCalificado) {
+            nicknameCalificadoValido = true;
+            break;
+        }
+    }
+
     if (!nicknameCalificadoValido) {
         std::cout << "Nickname invalido.\n";
         return;
     }
 
     bool calificacionOk = false;
-    //TODO: calificacionOk = Controlador->calificarUsuario(nicknameCalificado, calificacion)
+    calificacionOk = controlador->calificarUsuario(nicknameCalificado, calificacion);//calificacionOk = Controlador->calificarUsuario(nicknameCalificado, calificacion)
     if (calificacionOk) {
         std::cout << "Calificacion exitosa.\n";
     } else {
@@ -341,51 +393,52 @@ void Menu::calificarUsuario() {
 }
 
 void Menu::eliminarViaje() {
-    ControlEliminarViaje controlador;
-    std::set<DTListarViaje> viajes = controlador.listarViajes();
+    ControlEliminarViaje * controlador = ControlEliminarViaje::getInstance();
+    std::set<DTListarViaje> ColeccionDTLV = controlador->listarViajes(); //Coleccion de DTListarViaje = controlador->listarViajes()
 
     std::set<DTListarViaje>::iterator it;
-    for (it = viajes.begin(); it != viajes.end(); it++) {
-        std::cout << "> Codigo: " << it->getCodigo()
-                  << ", Fecha: " << it->getFecha()
-                  << ", Origen: " << it->getOrigen()
-                  << ", Destino: " << it->getDestino()
-                  << ", Conductor: " << it->getConductor() << "\n";
-    }
+    for (it = ColeccionDTLV.begin(); it != ColeccionDTLV.end(); ++it){
+        DTListarViaje actual = *it;
+        DTFecha fecha = actual.getFecha();
+        std::cout << "> Codigo: " << actual.getCodigo() << ", Fecha: " << fecha.getDia() << "/" << fecha.getMes() << "/" << fecha.getAnio() << ", Origen: " << actual.getOrigen() << ", Destino: " << actual.getDestino() << ", Conductor: " << actual.getConductor() << "\n";
+        //Recorrer la coleccion y mostrar "> Codigo: xx, Fecha: dd/mm/aaaa, Origen: zzz, Destino: www, Conductor: aaa"
+    } 
 
     int codigo;
     std::cout << "Ingrese codigo del viaje a eliminar: "; std::cin >> codigo;
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     bool codigoValido = false;
-    for (it = viajes.begin(); it != viajes.end(); it++) {
+    for (it = ColeccionDTLV.begin(); it != ColeccionDTLV.end(); it++) {
         if (it->getCodigo() == codigo) {
-            codigoValido = true;
+            codigoValido = true; // Validar codigo en listado
+            break;
         }
     }
+
     if (!codigoValido) {
         std::cout << "Codigo invalido.\n";
         return;
     }
 
-    //TODO: DTDetalleViaje = controlador->detalleViaje(codigo)
-    //TODO: Mostrar detalle del viaje siguiendo el formato
-    //>> Viaje <<
-    //--- Matrícula: aa, Fecha: dd/mm/aaaa, Origen: zzz, Destino: www, Capacidad: bbb, Precio por asiento: qqq
-    //>> Vehiculo <<
-    //--- Matricula: mm, Capacidad: aa, Marca: bbb, Modelo: ccc, Tipo: ddd
-    //>> Reservas <<
-    //--- AsientosReservados: xx, Fecha: dd/mm/aaaa, Pasajero: aaa
-    DTDetalleViaje detalle = controlador.detalleViaje(codigo);
+    DTDetalleViaje detalle = controlador->detalleViaje(codigo); //DTDetalleViaje = controlador->detalleViaje(codigo)
+
     DTDetalleVehiculo vehiculo = detalle.getVehiculo();
     std::vector<DTDetalleReserva> reservas = detalle.getReservas();
-    std::string tipoVehiculo = vehiculo.getTipo() == Auto ? "Auto" : "Moto";
+    DTFecha fechaViaje = detalle.getFecha();
+    std::string tipoVehiculo;
+    if (vehiculo.getTipo() == Auto){
+        tipoVehiculo = "Auto";
+    } else {
+        tipoVehiculo = "Moto";
+    }
 
+    //Mostrar detalle del viaje siguiendo el formato
     std::cout << ">> Viaje <<\n";
-    std::cout << "--- Matricula: " << vehiculo.getMatricula()
-              << ", Fecha: " << detalle.getFecha()
+    std::cout << "--- Codigo: " << detalle.getCodigo()
+              << ", Fecha: " << fechaViaje.getDia() << "/" << fechaViaje.getMes() << "/" << fechaViaje.getAnio()
               << ", Origen: " << detalle.getOrigen()
               << ", Destino: " << detalle.getDestino()
-              << ", Capacidad: " << detalle.getAsientosPublicados()
+              << ", AsientosPublicados: " << detalle.getAsientosPublicados()
               << ", Precio por asiento: " << detalle.getPrecio() << "\n";
     std::cout << ">> Vehiculo <<\n";
     std::cout << "--- Matricula: " << vehiculo.getMatricula()
@@ -394,20 +447,23 @@ void Menu::eliminarViaje() {
               << ", Modelo: " << vehiculo.getModelo()
               << ", Tipo: " << tipoVehiculo << "\n";
     std::cout << ">> Reservas <<\n";
-    for (std::vector<DTDetalleReserva>::iterator resIt = reservas.begin(); resIt != reservas.end(); resIt++) {
-        std::cout << "--- AsientosReservados: " << resIt->getAsientosReservados()
-                  << ", Fecha: " << resIt->getFecha()
-                  << ", Pasajero: " << resIt->getPasajero() << "\n";
+    std::vector<DTDetalleReserva>::iterator resIt;
+    for (resIt = reservas.begin(); resIt != reservas.end(); ++resIt) {
+        DTDetalleReserva actual = *resIt;
+        DTFecha fechaReserva = actual.getFecha();
+        std::cout << "--- AsientosReservados: " << actual.getAsientosReservados()
+                  << ", Fecha: " << fechaReserva.getDia() << "/" << fechaReserva.getMes() << "/" << fechaReserva.getAnio()
+                  << ", Pasajero: " << actual.getPasajero() << "\n";
     }
 
     int confirmar;
     std::cout << "¿Confirmar eliminacion? (1: Si, 0: No): "; std::cin >> confirmar;
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     if (confirmar == 1) {
-        controlador.eliminarViaje();
+        controlador->eliminarViaje(); //controlador->eliminarViaje()
         std::cout << "Viaje eliminado exitosamente.\n";
     } else {
-        controlador.cancelarEliminarViaje();
+        controlador->cancelarEliminarViaje(); //controlador->cancelarEliminarViaje() 
         std::cout << "Eliminacion cancelada.\n";
     }
 }
@@ -445,17 +501,17 @@ void Menu::cargarDatos() {
 
 void Menu::mostrarMenu() {
     int opcion = -1;
-    while (opcion != 8) {
-        std::cout << "\n=== MENU PRINCIPAL ===\n";
-        std::cout << "1. Alta de Usuario\n";
-        std::cout << "2. Alta de Viaje\n";
+    while (opcion != 0) {
+        std::cout << "\n=== Menu Principal ===\n";
+        std::cout << "1. Alta de usuario\n";
+        std::cout << "2. Alta de viaje\n";
         std::cout << "3. Generar Reserva\n";
-        std::cout << "4. Calificar Usuario\n";
-        std::cout << "5. Eliminar Viaje\n";
-        std::cout << "6. Administrar Fecha Actual\n";
+        std::cout << "4. Calificar usuario\n";
+        std::cout << "5. Eliminar viaje\n";
+        std::cout << "6. Modificar fecha del sistema\n";
         std::cout << "7. Cargar Datos\n";
-        std::cout << "8. Salir\n";
-        std::cout << "Ingrese una opcion: ";
+        std::cout << "0. Salir\n";
+        std::cout << "Seleccione una opcion: ";
         std::cin >> opcion;
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
@@ -481,8 +537,8 @@ void Menu::mostrarMenu() {
             case 7:
                 cargarDatos();
                 break;
-            case 8:
-                std::cout << "Saliendo del sistema...\n";
+            case 0:
+                std::cout << "Saliendo...\n";
                 break;
             default:
                 std::cout << "Opcion invalida.\n";

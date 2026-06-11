@@ -7,8 +7,7 @@
 #include <list>
 using namespace std;
 
-class ManejadorCalificaciones
-{
+class ManejadorCalificaciones{
 private:
     static ManejadorCalificaciones *instancia;
     map<string, list<Calificacion*>> CalificacionRecibidas;
@@ -16,7 +15,9 @@ private:
     
 public:
     static ManejadorCalificaciones* getInstance();
-    void crearCalificacion(DTFecha fecha, int puntaje, Usuario* uRealiza, Usuario* uCalificado, Reserva* r);
+    Calificacion * crearCalificacion(DTFecha fecha, int puntaje, Usuario* uRealiza, Usuario* uCalificado, Reserva* r);
+    bool existeCalifEntre(Usuario* uRealiza, Usuario* uCalificado, int codigoViaje);
+    void quitarCalificacion(Calificacion* c);
 
     ~ManejadorCalificaciones();
 };

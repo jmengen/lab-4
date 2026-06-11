@@ -2,6 +2,7 @@
 #include "../include/Pasajero.h"
 #include "../include/Viaje.h"
 #include "../include/Calificacion.h"
+#include "../include/ManejadorCalificaciones.h"
 
 Reserva::Reserva(Viaje * vi, Pasajero * p, int asientosReservados, DTFecha fecha) {
     this->asientosReservados = asientosReservados;
@@ -16,9 +17,14 @@ void Reserva::eliminarReserva(){
     if (this->pasajero != nullptr) {
         this->pasajero->quitarReserva(this);
     }
-    std::set<Calificacion*>::iterator it;
-    for (it = this->calificaciones.begin();it != this->calificaciones.end(); it++){
-        (*it)->eliminarCalificacion();
+
+    ManejadorCalificaciones* m = ManejadorCalificaciones::getInstance();
+    while (!this->calificaciones.empty()) {
+        std::set<Calificacion*>::iterator it = this->calificaciones.begin();
+        Calificacion* calificacion = *it;
+        this->calificaciones.erase(it);
+        calificacion->eliminarCalificacion();
+        m->quitarCalificacion(calificacion);
     }
 }
 int Reserva::getAsientosReservados() const{
@@ -40,6 +46,10 @@ std::string Reserva::getNickPasajero() const{
     return this->pasajero->getNickname();
 }
 
+DTDetalleReserva Reserva::getDTDetalleReserva() const{
+    return DTDetalleReserva(this->asientosReservados, this->fecha, this->getNickPasajero());
+}
+
 bool Reserva::operator<(const Reserva& otra) const {
     if (this->pasajero->getNickname() != otra.pasajero->getNickname()) {
         return this->pasajero->getNickname() < otra.pasajero->getNickname();
@@ -51,3 +61,8 @@ bool Reserva::operator<(const Reserva& otra) const {
 void Reserva::addCalificacion(Calificacion *c){
     this->calificaciones.insert(c);
 }
+
+bool Reserva::esReservaDelViaje(int codigoViaje) const{
+    return (this->viaje->getCodigo() == codigoViaje);
+}
+    

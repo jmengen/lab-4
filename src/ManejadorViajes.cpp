@@ -55,11 +55,16 @@ Viaje* ManejadorViajes::crearViaje(DTFecha fecha, std::string origen, std::strin
     this->SiguienteCodigo++;
 
     Viaje* viaje = new Viaje(codigo, fecha, origen, destino, asientos, precio, vehiculo);
-    this->viajes.insert({codigo, viaje});
+    this->viajes[codigo] = viaje;
 
     return viaje;
 }
 
 void ManejadorViajes::quitarViaje(int codigo) {
-    this->viajes.erase(codigo);
+    std::map<int, Viaje*>::iterator it = this->viajes.find(codigo);
+    if (it != this->viajes.end()) {
+        Viaje* viaje = it->second;
+        this->viajes.erase(it);
+        delete viaje;
+    }
 }

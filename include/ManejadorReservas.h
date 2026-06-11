@@ -17,8 +17,11 @@ class ManejadorReservas {
     public:
         static ManejadorReservas* getInstance();
 
+        Reserva * obtenerReservaEntre(Pasajero* pas, Viaje * vi);
+
         bool NoExisteReserva(Viaje vi, Pasajero p);
         Reserva* CrearReserva(Viaje * vi, Pasajero * p, int asientosReservados);
+        void quitarReserva(Reserva* reserva);
 };
 
 #endif

@@ -14,7 +14,6 @@ class ManejadorUsuarios {
         static ManejadorUsuarios* instancia;
 
         std::map <std::string, Usuario*> usuarios;
-        std::set<Pasajero*> pasajeros;
         ManejadorUsuarios() = default;
 
     public:

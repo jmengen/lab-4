@@ -16,7 +16,7 @@ ControlAltaViaje * ControlAltaViaje::getInstance(){
 }
 
 std::set<DTVehiculosConductor> ControlAltaViaje::listarVehiculosConductor(std::string nickname){
-    std::set<DTVehiculosConductor> res ;
+    std::set<DTVehiculosConductor> res;
     ManejadorUsuarios* m = ManejadorUsuarios::getInstance();
     Conductor* c = m->getConductor(nickname);
     if (c != nullptr){

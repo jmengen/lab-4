@@ -3,10 +3,12 @@
 #include "../include/DTConsultaViaje.h"
 #include <set>
 #include "../include/Vehiculo.h"
-#include "DTDetalleVehiculo.h"
+#include "../include/DTDetalleVehiculo.h"
 #include "../include/Vehiculo.h"
-#include "ManejadorViajes.h"
-#include "Reserva.h"
+#include "../include/ManejadorViajes.h"
+#include "../include/ManejadorReservas.h"
+#include "../include/Reserva.h"
+#include <algorithm>
 
 Viaje::Viaje(int codigo, DTFecha fecha, std::string origen, std::string destino, int asientosPublicados, float precio, Vehiculo* vehiculo) {
     this->codigo = codigo;
@@ -40,9 +42,6 @@ void Viaje::asociarReserva(Reserva* res){
     this->reservas.insert(res);
 }
 
-Reserva* Viaje::asociarReservas(Usuario* u1, Usuario* u2){
-    //falta implementar
-}
 
 int Viaje::getCodigo() const{
     return this->codigo;
@@ -70,7 +69,7 @@ std::set<DTUsuarioViaje> Viaje::obtenerParticipantes(std::string nickRecordado){
         Reserva* actual = *it;
         std::string nick = actual->getNickPasajero();
         if (nick != nickRecordado){
-            ret.insert(DTUsuarioViaje(nick, TipoPasajero));
+            ret.insert(DTUsuarioViaje(nick, TipoPasajero, actual->getAsientosReservados()));
         }  
     } 
 
@@ -84,6 +83,13 @@ std::set<DTUsuarioViaje> Viaje::obtenerParticipantes(std::string nickRecordado){
 
 DTDetalleViaje Viaje::getDTDetalleViaje(){
     std::vector<DTDetalleReserva> res;
+    std::set<Reserva*>::iterator it;
+    for (it = this->reservas.begin(); it != this->reservas.end(); ++it) {
+        res.push_back((*it)->getDTDetalleReserva());
+    }
+    std::sort(res.begin(), res.end(), [](DTDetalleReserva a, DTDetalleReserva b) {
+        return a.getAsientosReservados() > b.getAsientosReservados();
+    });
     return DTDetalleViaje(this->codigo, this->fecha, this->origen, this->destino,  this->asientosPublicados,  this->precio, this->vehiculo->getDTDetalleVehiculo(), res);
 }
    
@@ -91,8 +97,13 @@ void Viaje::eliminarViaje(){
     if (this->vehiculo != nullptr) {
         this->vehiculo->quitarViaje(this);
     }
-    std::set<Reserva*>::iterator it;
-    for (it = this->reservas.begin(); it!= this->reservas.end();it++){
-       (*it)->eliminarReserva();
+
+    ManejadorReservas* manejador = ManejadorReservas::getInstance();
+    while (!this->reservas.empty()) {
+        std::set<Reserva*>::iterator it = this->reservas.begin();
+        Reserva* reserva = *it;
+        this->reservas.erase(it);
+        reserva->eliminarReserva();
+        manejador->quitarReserva(reserva);
     }
 }

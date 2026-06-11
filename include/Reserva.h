@@ -3,6 +3,7 @@
 
 #include "DTFecha.h"
 #include "DTListarViaje.h"
+#include "DTDetalleReserva.h"
 #include <set>
 
 class Pasajero;
@@ -22,11 +23,13 @@ public:
     ~Reserva();
     void eliminarReserva();
     bool esReserva(Viaje v, Pasajero p) const;
+    bool esReservaDelViaje(int codigoViaje) const;
     int getAsientosReservados() const;
 
     DTListarViaje getDTViaje() const;
 
     std::string getNickPasajero() const;
+    DTDetalleReserva getDTDetalleReserva() const;
     bool operator<(const Reserva& otra) const;
     void addCalificacion (Calificacion *c);
 };

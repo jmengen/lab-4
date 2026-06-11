@@ -1,12 +1,13 @@
 #include "../include/Usuario.h"
 #include <set>
-#include "Calificacion.h"
+#include "../include/Calificacion.h"
 
 Usuario::Usuario(std::string nickname, std::string nombre, std::string contrasena, std::string email) {
     this->nickname = nickname;
     this->nombre = nombre;
     this->contrasena = contrasena;
     this->email = email;
+    this->calificacionPromedio = 5;
 }
 
 std::string Usuario::getNickname() const{
@@ -27,7 +28,7 @@ std::string Usuario::getEmail() const{
 
 float Usuario::getCalificacion() {
     if (this->califica.empty()) {
-        return 0;
+        return this->calificacionPromedio;
     }
 
     int sum = 0;
@@ -42,17 +43,16 @@ float Usuario::getCalificacion() {
     return this->calificacionPromedio;
 }
 DTUsuario Usuario::getDTUsuario() const{
-    return DTUsuario(this->nickname, this->nombre);
+    return DTUsuario(this->nickname, this->nombre, this->getTipoUsuario());
 }
 
-void Usuario::addCalCal (Calificacion* c){
+void Usuario::addCalCal(Calificacion* c){
     this->califica.insert(c);
 }
 
-void Usuario::addCalRea (Calificacion* c){
+void Usuario::addCalRea(Calificacion* c){
     this->realiza.insert(c);
 }
-
 
 Usuario::~Usuario() {}
 
