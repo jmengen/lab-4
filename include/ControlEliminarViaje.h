@@ -4,8 +4,9 @@
 #include "DTListarViaje.h"
 #include <set>
 #include "DTDetalleViaje.h"
+#include "IEliminarViaje.h"
 
-class ControlEliminarViaje {
+class ControlEliminarViaje : public IEliminarViaje {
     private:
         static ControlEliminarViaje* instancia;
         ControlEliminarViaje() = default;

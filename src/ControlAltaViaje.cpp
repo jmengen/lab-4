@@ -26,6 +26,10 @@ std::set<DTVehiculosConductor> ControlAltaViaje::listarVehiculosConductor(std::s
 }
 
 bool ControlAltaViaje::altaViaje(std::string matricula, DTFecha fecha, std::string origen, std::string destino, int asientos, float precio) {
+    if (asientos <= 0 || precio < 0 || origen.empty() || destino.empty()) {
+        return false;
+    }
+
     ManejadorVehiculos* mvh = ManejadorVehiculos::getInstancia();
     Vehiculo* v = mvh->getVehiculo(matricula);
 

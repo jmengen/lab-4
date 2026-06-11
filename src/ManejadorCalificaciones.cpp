@@ -22,8 +22,14 @@ Calificacion * ManejadorCalificaciones::crearCalificacion(DTFecha fecha, int pun
 }
 
 bool ManejadorCalificaciones::existeCalifEntre(Usuario* uRealiza, Usuario* uCalificado, int codigoViaje){
-    std::list<Calificacion*> listaCalificaciones = this->CalificacionRecibidas[uCalificado->getNickname()];
-    std::list<Calificacion*>::iterator it;
+    std::map<std::string, std::list<Calificacion*>>::iterator recibidas =
+        this->CalificacionRecibidas.find(uCalificado->getNickname());
+    if (recibidas == this->CalificacionRecibidas.end()) {
+        return false;
+    }
+
+    const std::list<Calificacion*>& listaCalificaciones = recibidas->second;
+    std::list<Calificacion*>::const_iterator it;
     for (it = listaCalificaciones.begin(); it != listaCalificaciones.end(); ++it){
         Calificacion* actual = *it;
         if (actual->esCalifEntre(uRealiza, uCalificado,codigoViaje)){

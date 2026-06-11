@@ -11,12 +11,12 @@
 #include <set>
 using namespace std;
 
-class ControlCalificarUsuario{
+class ControlCalificarUsuario : public IControlCalificarUsuario{
     private:
         static ControlCalificarUsuario* instancia;
         ControlCalificarUsuario() = default;
         string nickRecordado;
-        int codRecordado;
+        int codRecordado = -1;
 
 
     public:

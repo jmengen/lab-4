@@ -23,10 +23,13 @@ std::set<std::string> ControlGenerarReserva::listarPasajeros(){
 }
 
 std::list<DTConsultaViaje> ControlGenerarReserva::consultarViajes(DTFecha fecha, std::string origen, std::string destino, int asientos){
+    std::list<DTConsultaViaje> ret;
+    if (asientos <= 0) {
+        return ret;
+    }
+
     ManejadorViajes* m = ManejadorViajes::getInstance();
     std::set<Viaje*> vis = m->getViajes();
-
-    std::list<DTConsultaViaje> ret;
 
     std::set<Viaje*>::iterator it;
     for (it = vis.begin(); it != vis.end(); ++it){
@@ -43,11 +46,18 @@ std::list<DTConsultaViaje> ControlGenerarReserva::consultarViajes(DTFecha fecha,
 
 
 bool ControlGenerarReserva::generarReserva(std::string nickname, int codigo, int asientos){
+    if (asientos <= 0) {
+        return false;
+    }
+
     ManejadorViajes* v = ManejadorViajes::getInstance();
     Viaje * vi = v->getViaje(codigo);
     ManejadorUsuarios* u = ManejadorUsuarios::getInstance();
-    Usuario * usu = u->getUsuario(nickname);
-    Pasajero * p = static_cast<Pasajero*>(usu);
+    Pasajero * p = u->getPasajero(nickname);
+    if (vi == nullptr || p == nullptr) {
+        return false;
+    }
+
     bool cond = vi->Entran(asientos);
     ManejadorReservas* r = ManejadorReservas::getInstance();
     if(cond){

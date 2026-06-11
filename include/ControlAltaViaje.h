@@ -8,7 +8,7 @@
 #include "ManejadorVehiculos.h"
 #include "ManejadorViajes.h"
 
-class ControlAltaViaje {
+class ControlAltaViaje : public IControlAltaViaje {
     private:
         static ControlAltaViaje * instancia;
         ControlAltaViaje() = default;

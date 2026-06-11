@@ -14,8 +14,8 @@ public:
     DTUsuarioViaje(std::string nickname, TipoUsuario tipo, int orden = 0);
     bool operator<(const DTUsuarioViaje& otra) const;
 
-    std::string getNickname();
-    TipoUsuario getTipo();
+    std::string getNickname() const;
+    TipoUsuario getTipo() const;
 };
 
 #endif

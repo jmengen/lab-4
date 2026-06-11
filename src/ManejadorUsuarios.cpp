@@ -10,7 +10,7 @@ ManejadorUsuarios *ManejadorUsuarios::getInstance(){
 }
 
 bool ManejadorUsuarios::existeUsuario(std::string nickname){
-    return this->usuarios[nickname] != nullptr;
+    return this->usuarios.find(nickname) != this->usuarios.end();
 }
 
 void ManejadorUsuarios::crearPasajero(std::string nickname, std::string nombre, std::string contrasena, std::string email, std::string ci){
