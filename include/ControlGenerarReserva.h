@@ -15,6 +15,7 @@ class ControlGenerarReserva : public IControlGenerarReserva{
 
     public:
         static ControlGenerarReserva * getInstance();
+        static void liberarInstancia();
 
         std::set<std::string> listarPasajeros();
         std::list<DTConsultaViaje> consultarViajes(DTFecha fecha, std::string origen, std::string destino, int asientos);

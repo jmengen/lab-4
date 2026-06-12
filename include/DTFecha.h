@@ -18,6 +18,7 @@ public:
     int getAnio();
 
     bool operator==(DTFecha other);
+    bool operator<=(const DTFecha& other) const;
 
 };
 

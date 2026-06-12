@@ -8,13 +8,14 @@
 #include "ManejadorVehiculos.h"
 #include "ManejadorViajes.h"
 
-class ControlAltaViaje {
+class ControlAltaViaje : public IControlAltaViaje {
     private:
         static ControlAltaViaje * instancia;
         ControlAltaViaje() = default;
 
     public:
         static ControlAltaViaje * getInstance();
+        static void liberarInstancia();
 
         std::set<DTVehiculosConductor> listarVehiculosConductor(std::string nickname);
         bool altaViaje(std::string matricula, DTFecha fecha, std::string origen, std::string destino , int asientos, float precio);

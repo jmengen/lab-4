@@ -12,6 +12,7 @@ class ControlAltaUsuario : public IControlAltaUsuario{
 
     public:
         static ControlAltaUsuario * getInstance();
+        static void liberarInstancia();
 
         bool altaPasajero(std::string nickname, std::string nombre, std::string contrasena, std::string email, std::string ci);
         bool altaConductor(string nickname, string nombre, string contrasena, string email, set<TipoLibreta> libs);

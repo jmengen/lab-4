@@ -12,6 +12,11 @@ ControlCalificarUsuario * ControlCalificarUsuario::getInstance(){
     return instancia;
 }
 
+void ControlCalificarUsuario::liberarInstancia() {
+    delete instancia;
+    instancia = nullptr;
+}
+
 
 set<DTUsuario> ControlCalificarUsuario::listarUsuarios(){
     ManejadorUsuarios* mu = ManejadorUsuarios::getInstance();
@@ -28,6 +33,11 @@ set<DTUsuario> ControlCalificarUsuario::listarUsuarios(){
 set<DTListarViaje> ControlCalificarUsuario::listarViajes(string nickname){
     ManejadorUsuarios* mu = ManejadorUsuarios::getInstance();
     Usuario* U = mu->getUsuario(nickname);
+    if (U == nullptr) {
+        this->nickRecordado = "";
+        return {};
+    }
+
     this->nickRecordado = nickname;
     return U->obtenerDTListarViaje();
 }
@@ -35,16 +45,40 @@ set<DTListarViaje> ControlCalificarUsuario::listarViajes(string nickname){
 set<DTUsuarioViaje> ControlCalificarUsuario::listarUsuariosViaje(int codigo){
     ManejadorViajes* m = ManejadorViajes::getInstance();
     Viaje* vi = m->getViaje(codigo);
+    if (vi == nullptr || this->nickRecordado.empty()) {
+        this->codRecordado = -1;
+        return {};
+    }
+
     this->codRecordado = codigo;
     return vi->obtenerParticipantes(this->nickRecordado);
 }
 
 bool ControlCalificarUsuario::calificarUsuario(string nicknameCalificado, int calificacion){
+    if (calificacion < 1 || calificacion > 5 || this->nickRecordado.empty() || this->codRecordado < 0) {
+        return false;
+    }
+
     ManejadorUsuarios* m = ManejadorUsuarios::getInstance();
     Usuario* uRealiza = m->getUsuario(this->nickRecordado);
     Usuario* uCalificado = m->getUsuario(nicknameCalificado);
     ManejadorViajes* v = ManejadorViajes::getInstance();
     Viaje* vi = v->getViaje(this->codRecordado);
+    if (uRealiza == nullptr || uCalificado == nullptr || vi == nullptr || uRealiza == uCalificado) {
+        return false;
+    }
+
+    set<DTUsuarioViaje> participantes = vi->obtenerParticipantes(this->nickRecordado);
+    bool participaEnViaje = false;
+    for (set<DTUsuarioViaje>::iterator it = participantes.begin(); it != participantes.end(); ++it) {
+        if (it->getNickname() == nicknameCalificado) {
+            participaEnViaje = true;
+            break;
+        }
+    }
+    if (!participaEnViaje) {
+        return false;
+    }
 
     ManejadorCalificaciones* c = ManejadorCalificaciones::getInstance();
     bool cond = c->existeCalifEntre(uRealiza, uCalificado, vi->getCodigo());
@@ -62,11 +96,14 @@ bool ControlCalificarUsuario::calificarUsuario(string nicknameCalificado, int ca
         } else {
             r = mr->obtenerReservaEntre(static_cast<Pasajero*>(uCalificado), vi);
         }
+        if (r == nullptr) {
+            return false;
+        }
 
-        Calificacion * PuntCalif = c->crearCalificacion(fecha, calificacion, uRealiza, uCalificado, r);
+        c->crearCalificacion(fecha, calificacion, uRealiza, uCalificado, r);
 
         this->nickRecordado = "";
-        this->codRecordado = 0;
+        this->codRecordado = -1;
 
         return true;
     }

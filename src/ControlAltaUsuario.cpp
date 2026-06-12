@@ -10,6 +10,11 @@ ControlAltaUsuario *ControlAltaUsuario::getInstance(){
     return instancia;
 }
 
+void ControlAltaUsuario::liberarInstancia() {
+    delete instancia;
+    instancia = nullptr;
+}
+
 bool ControlAltaUsuario::altaPasajero(string nickname, string nombre, string contrasena, string email, string ci){
     ManejadorUsuarios* m = ManejadorUsuarios::getInstance();
     if (m->existeUsuario(nickname))
@@ -32,9 +37,11 @@ bool ControlAltaUsuario::altaConductor(string nickname, string nombre, string co
 
 int ControlAltaUsuario::registrarVehiculo(string nickname, string matricula, int capacidad, string marca, string modelo, TipoVehiculo tipo){
     ManejadorUsuarios* m = ManejadorUsuarios::getInstance();
-    Conductor* c = m->getConductor(nickname);/*
-    if ( c== nullptr)
-        return -2;*/
+    Conductor* c = m->getConductor(nickname);
+    if (c == nullptr || capacidad <= 0) {
+        return -2;
+    }
+
     ManejadorVehiculos* v = ManejadorVehiculos::getInstancia();
     if (!v->existeVehiculo(matricula)){
         if (c->puedeManejar(tipo)){

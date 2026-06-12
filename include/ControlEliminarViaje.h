@@ -4,14 +4,16 @@
 #include "DTListarViaje.h"
 #include <set>
 #include "DTDetalleViaje.h"
+#include "IEliminarViaje.h"
 
-class ControlEliminarViaje {
+class ControlEliminarViaje : public IEliminarViaje {
     private:
         static ControlEliminarViaje* instancia;
         ControlEliminarViaje() = default;
         int codigoRecordado = -1;
     public:
         static ControlEliminarViaje* getInstance();
+        static void liberarInstancia();
 
         std::set<DTListarViaje>listarViajes();
         DTDetalleViaje detalleViaje(int codigo);

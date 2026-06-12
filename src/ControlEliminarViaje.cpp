@@ -14,6 +14,11 @@ ControlEliminarViaje * ControlEliminarViaje::getInstance(){
     return instancia;
 }
 
+void ControlEliminarViaje::liberarInstancia() {
+    delete instancia;
+    instancia = nullptr;
+}
+
 
 std::set<DTListarViaje> ControlEliminarViaje::listarViajes(){
     ManejadorViajes* m = ManejadorViajes::getInstance();

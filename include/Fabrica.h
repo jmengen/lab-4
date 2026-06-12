@@ -4,18 +4,25 @@
 #include "IControlAltaUsuario.h"
 #include "IControlAltaViaje.h"
 #include "IControlGenerarReserva.h"
-
+#include "IControlCalificarUsuario.h"
+#include "IEliminarViaje.h"
 #include "IControladorFechaActual.h"
 
 class Fabrica {
 private:
     static Fabrica* instancia;
     Fabrica();
+
 public:
     static Fabrica* getInstance();
+    static void liberarSistema();
+
     IControlAltaUsuario* getIControlAltaUsuario();
-    IControladorFechaActual* getIControladorFechaActual();
     IControlAltaViaje* getIControlAltaViaje();
+    IControlGenerarReserva* getIControlGenerarReserva();
+    IControlCalificarUsuario* getIControlCalificarUsuario();
+    IEliminarViaje* getIEliminarViaje();
+    IControladorFechaActual* getIControladorFechaActual();
 };
 
 #endif

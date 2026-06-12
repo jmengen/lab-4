@@ -16,6 +16,8 @@ class ManejadorReservas {
 
     public:
         static ManejadorReservas* getInstance();
+        static void liberarInstancia();
+        ~ManejadorReservas();
 
         Reserva * obtenerReservaEntre(Pasajero* pas, Viaje * vi);
 

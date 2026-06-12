@@ -9,8 +9,20 @@ ManejadorUsuarios *ManejadorUsuarios::getInstance(){
     return instancia;
 }
 
+void ManejadorUsuarios::liberarInstancia() {
+    delete instancia;
+    instancia = nullptr;
+}
+
+ManejadorUsuarios::~ManejadorUsuarios() {
+    for (std::map<std::string, Usuario*>::iterator it = usuarios.begin(); it != usuarios.end(); ++it) {
+        delete it->second;
+    }
+    usuarios.clear();
+}
+
 bool ManejadorUsuarios::existeUsuario(std::string nickname){
-    return this->usuarios[nickname] != nullptr;
+    return this->usuarios.find(nickname) != this->usuarios.end();
 }
 
 void ManejadorUsuarios::crearPasajero(std::string nickname, std::string nombre, std::string contrasena, std::string email, std::string ci){

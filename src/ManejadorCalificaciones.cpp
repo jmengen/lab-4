@@ -5,9 +5,26 @@ ManejadorCalificaciones* ManejadorCalificaciones::instancia = nullptr;
 
 ManejadorCalificaciones* ManejadorCalificaciones::getInstance(){
 
-    if (instancia == nullptr)
+    if (instancia == nullptr) {
         instancia = new ManejadorCalificaciones;
+    }
     return instancia;
+}
+
+void ManejadorCalificaciones::liberarInstancia() {
+    delete instancia;
+    instancia = nullptr;
+}
+
+ManejadorCalificaciones::~ManejadorCalificaciones() {
+    for (std::map<std::string, std::list<Calificacion*>>::iterator it = CalificacionRecibidas.begin();
+         it != CalificacionRecibidas.end(); ++it) {
+        for (std::list<Calificacion*>::iterator calificacion = it->second.begin();
+             calificacion != it->second.end(); ++calificacion) {
+            delete *calificacion;
+        }
+    }
+    CalificacionRecibidas.clear();
 }
 
 
@@ -22,8 +39,14 @@ Calificacion * ManejadorCalificaciones::crearCalificacion(DTFecha fecha, int pun
 }
 
 bool ManejadorCalificaciones::existeCalifEntre(Usuario* uRealiza, Usuario* uCalificado, int codigoViaje){
-    std::list<Calificacion*> listaCalificaciones = this->CalificacionRecibidas[uCalificado->getNickname()];
-    std::list<Calificacion*>::iterator it;
+    std::map<std::string, std::list<Calificacion*>>::iterator recibidas =
+        this->CalificacionRecibidas.find(uCalificado->getNickname());
+    if (recibidas == this->CalificacionRecibidas.end()) {
+        return false;
+    }
+
+    const std::list<Calificacion*>& listaCalificaciones = recibidas->second;
+    std::list<Calificacion*>::const_iterator it;
     for (it = listaCalificaciones.begin(); it != listaCalificaciones.end(); ++it){
         Calificacion* actual = *it;
         if (actual->esCalifEntre(uRealiza, uCalificado,codigoViaje)){

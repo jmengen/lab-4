@@ -11,16 +11,17 @@
 #include <set>
 using namespace std;
 
-class ControlCalificarUsuario{
+class ControlCalificarUsuario : public IControlCalificarUsuario{
     private:
         static ControlCalificarUsuario* instancia;
         ControlCalificarUsuario() = default;
         string nickRecordado;
-        int codRecordado;
+        int codRecordado = -1;
 
 
     public:
         static ControlCalificarUsuario* getInstance();
+        static void liberarInstancia();
         
         set<DTUsuario> listarUsuarios();
         set<DTListarViaje> listarViajes(string nickname);

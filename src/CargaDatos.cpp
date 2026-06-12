@@ -1,9 +1,5 @@
 #include "../include/CargaDatos.h"
-#include "../include/ControlAltaUsuario.h"
-#include "../include/ControlAltaViaje.h"
-#include "../include/ControlGenerarReserva.h"
-#include "../include/ControlCalificarUsuario.h"
-#include "../include/ControladorFechaActual.h"
+#include "../include/Fabrica.h"
 #include <iostream>
 #include <set>
 
@@ -20,6 +16,11 @@ CargaDatos* CargaDatos::getInstance() {
     return instancia;
 }
 
+void CargaDatos::liberarInstancia() {
+    delete instancia;
+    instancia = nullptr;
+}
+
 void CargaDatos::cargarDatos() {
     if (datosCargados) {
         std::cout << "Error: Los datos ya han sido cargados anteriormente.\n";
@@ -28,11 +29,12 @@ void CargaDatos::cargarDatos() {
 
     std::cout << "Cargando datos harcodeados del sistema...\n";
 
-    ControlAltaUsuario* cau = ControlAltaUsuario::getInstance();
-    ControlAltaViaje* cav = ControlAltaViaje::getInstance();
-    ControlGenerarReserva* cgr = ControlGenerarReserva::getInstance();
-    ControlCalificarUsuario* ccu = ControlCalificarUsuario::getInstance();
-    ControladorFechaActual* cfa = ControladorFechaActual::getInstance();
+    Fabrica* fabrica = Fabrica::getInstance();
+    IControlAltaUsuario* cau = fabrica->getIControlAltaUsuario();
+    IControlAltaViaje* cav = fabrica->getIControlAltaViaje();
+    IControlGenerarReserva* cgr = fabrica->getIControlGenerarReserva();
+    IControlCalificarUsuario* ccu = fabrica->getIControlCalificarUsuario();
+    IControladorFechaActual* cfa = fabrica->getIControladorFechaActual();
 
     std::set<TipoLibreta> libretas;
 
