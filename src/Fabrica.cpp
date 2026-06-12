@@ -5,6 +5,12 @@
 #include "../include/ControlCalificarUsuario.h"
 #include "../include/ControlEliminarViaje.h"
 #include "../include/ControladorFechaActual.h"
+#include "../include/CargaDatos.h"
+#include "../include/ManejadorCalificaciones.h"
+#include "../include/ManejadorReservas.h"
+#include "../include/ManejadorViajes.h"
+#include "../include/ManejadorVehiculos.h"
+#include "../include/ManejadorUsuarios.h"
 
 Fabrica* Fabrica::instancia = nullptr;
 
@@ -15,6 +21,26 @@ Fabrica* Fabrica::getInstance() {
         instancia = new Fabrica();
     }
     return instancia;
+}
+
+void Fabrica::liberarSistema() {
+    CargaDatos::liberarInstancia();
+
+    ControlAltaUsuario::liberarInstancia();
+    ControlAltaViaje::liberarInstancia();
+    ControlGenerarReserva::liberarInstancia();
+    ControlCalificarUsuario::liberarInstancia();
+    ControlEliminarViaje::liberarInstancia();
+    ControladorFechaActual::liberarInstancia();
+
+    ManejadorCalificaciones::liberarInstancia();
+    ManejadorReservas::liberarInstancia();
+    ManejadorViajes::liberarInstancia();
+    ManejadorVehiculos::liberarInstancia();
+    ManejadorUsuarios::liberarInstancia();
+
+    delete instancia;
+    instancia = nullptr;
 }
 
 IControlAltaUsuario* Fabrica::getIControlAltaUsuario() {

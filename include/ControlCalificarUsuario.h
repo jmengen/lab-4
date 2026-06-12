@@ -21,6 +21,7 @@ class ControlCalificarUsuario : public IControlCalificarUsuario{
 
     public:
         static ControlCalificarUsuario* getInstance();
+        static void liberarInstancia();
         
         set<DTUsuario> listarUsuarios();
         set<DTListarViaje> listarViajes(string nickname);

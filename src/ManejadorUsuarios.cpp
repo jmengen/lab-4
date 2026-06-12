@@ -9,6 +9,18 @@ ManejadorUsuarios *ManejadorUsuarios::getInstance(){
     return instancia;
 }
 
+void ManejadorUsuarios::liberarInstancia() {
+    delete instancia;
+    instancia = nullptr;
+}
+
+ManejadorUsuarios::~ManejadorUsuarios() {
+    for (std::map<std::string, Usuario*>::iterator it = usuarios.begin(); it != usuarios.end(); ++it) {
+        delete it->second;
+    }
+    usuarios.clear();
+}
+
 bool ManejadorUsuarios::existeUsuario(std::string nickname){
     return this->usuarios.find(nickname) != this->usuarios.end();
 }

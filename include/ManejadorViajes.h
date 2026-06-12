@@ -20,6 +20,8 @@ class ManejadorViajes {
 
     public:
         static ManejadorViajes* getInstance();
+        static void liberarInstancia();
+        ~ManejadorViajes();
         std::set<Viaje*> getViajes();
         Viaje * getViaje(int codigo);
         

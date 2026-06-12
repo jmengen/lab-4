@@ -15,6 +15,7 @@ private:
 
 public:
     static Fabrica* getInstance();
+    static void liberarSistema();
 
     IControlAltaUsuario* getIControlAltaUsuario();
     IControlAltaViaje* getIControlAltaViaje();

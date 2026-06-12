@@ -10,6 +10,11 @@ ControlAltaUsuario *ControlAltaUsuario::getInstance(){
     return instancia;
 }
 
+void ControlAltaUsuario::liberarInstancia() {
+    delete instancia;
+    instancia = nullptr;
+}
+
 bool ControlAltaUsuario::altaPasajero(string nickname, string nombre, string contrasena, string email, string ci){
     ManejadorUsuarios* m = ManejadorUsuarios::getInstance();
     if (m->existeUsuario(nickname))

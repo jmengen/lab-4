@@ -10,6 +10,18 @@ ManejadorVehiculos *ManejadorVehiculos::getInstancia(){
     return instancia; 
 }
 
+void ManejadorVehiculos::liberarInstancia() {
+    delete instancia;
+    instancia = nullptr;
+}
+
+ManejadorVehiculos::~ManejadorVehiculos() {
+    for (std::map<std::string, Vehiculo*>::iterator it = vehiculos.begin(); it != vehiculos.end(); ++it) {
+        delete it->second;
+    }
+    vehiculos.clear();
+}
+
 bool ManejadorVehiculos::existeVehiculo(std::string matricula){
     return this->vehiculos.find(matricula) != this->vehiculos.end();
 }

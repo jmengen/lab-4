@@ -5,9 +5,26 @@ ManejadorCalificaciones* ManejadorCalificaciones::instancia = nullptr;
 
 ManejadorCalificaciones* ManejadorCalificaciones::getInstance(){
 
-    if (instancia == nullptr)
+    if (instancia == nullptr) {
         instancia = new ManejadorCalificaciones;
+    }
     return instancia;
+}
+
+void ManejadorCalificaciones::liberarInstancia() {
+    delete instancia;
+    instancia = nullptr;
+}
+
+ManejadorCalificaciones::~ManejadorCalificaciones() {
+    for (std::map<std::string, std::list<Calificacion*>>::iterator it = CalificacionRecibidas.begin();
+         it != CalificacionRecibidas.end(); ++it) {
+        for (std::list<Calificacion*>::iterator calificacion = it->second.begin();
+             calificacion != it->second.end(); ++calificacion) {
+            delete *calificacion;
+        }
+    }
+    CalificacionRecibidas.clear();
 }
 
 

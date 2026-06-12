@@ -1,4 +1,5 @@
 #include "../include/ControlGenerarReserva.h"
+#include "../include/ControladorFechaActual.h"
 using namespace std;
 
 ControlGenerarReserva* ControlGenerarReserva::instancia = nullptr;
@@ -8,6 +9,11 @@ ControlGenerarReserva * ControlGenerarReserva::getInstance(){
         instancia = new ControlGenerarReserva();
     }
     return instancia;
+}
+
+void ControlGenerarReserva::liberarInstancia() {
+    delete instancia;
+    instancia = nullptr;
 }
 
 std::set<std::string> ControlGenerarReserva::listarPasajeros(){
@@ -55,6 +61,11 @@ bool ControlGenerarReserva::generarReserva(std::string nickname, int codigo, int
     ManejadorUsuarios* u = ManejadorUsuarios::getInstance();
     Pasajero * p = u->getPasajero(nickname);
     if (vi == nullptr || p == nullptr) {
+        return false;
+    }
+
+    DTFecha fechaActual = ControladorFechaActual::getInstance()->getFecha();
+    if (!(fechaActual <= vi->getFecha())) {
         return false;
     }
 

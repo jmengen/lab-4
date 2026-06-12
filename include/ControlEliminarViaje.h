@@ -13,6 +13,7 @@ class ControlEliminarViaje : public IEliminarViaje {
         int codigoRecordado = -1;
     public:
         static ControlEliminarViaje* getInstance();
+        static void liberarInstancia();
 
         std::set<DTListarViaje>listarViajes();
         DTDetalleViaje detalleViaje(int codigo);

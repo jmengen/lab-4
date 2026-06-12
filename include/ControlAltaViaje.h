@@ -15,6 +15,7 @@ class ControlAltaViaje : public IControlAltaViaje {
 
     public:
         static ControlAltaViaje * getInstance();
+        static void liberarInstancia();
 
         std::set<DTVehiculosConductor> listarVehiculosConductor(std::string nickname);
         bool altaViaje(std::string matricula, DTFecha fecha, std::string origen, std::string destino , int asientos, float precio);

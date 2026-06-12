@@ -13,6 +13,18 @@ ManejadorReservas *ManejadorReservas::getInstance(){
     return instancia;
 }
 
+void ManejadorReservas::liberarInstancia() {
+    delete instancia;
+    instancia = nullptr;
+}
+
+ManejadorReservas::~ManejadorReservas() {
+    for (std::set<Reserva*>::iterator it = reservas.begin(); it != reservas.end(); ++it) {
+        delete *it;
+    }
+    reservas.clear();
+}
+
 bool ManejadorReservas::NoExisteReserva(Viaje vi, Pasajero p){
     bool ret = true;
     std::set<Reserva*>::iterator it;

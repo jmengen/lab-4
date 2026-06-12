@@ -20,6 +20,16 @@ bool DTFecha::operator==(DTFecha other) {
     return (dia == other.dia && mes == other.mes && anio == other.anio);
 }
 
+bool DTFecha::operator<=(const DTFecha& other) const {
+    if (anio != other.anio) {
+        return anio < other.anio;
+    }
+    if (mes != other.mes) {
+        return mes < other.mes;
+    }
+    return dia <= other.dia;
+}
+
 std::ostream& operator<<(std::ostream& os, DTFecha f) {
     os << f.getDia() << "/" << f.getMes() << "/" << f.getAnio();
     return os;

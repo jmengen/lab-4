@@ -7,7 +7,7 @@ Usuario::Usuario(std::string nickname, std::string nombre, std::string contrasen
     this->nombre = nombre;
     this->contrasena = contrasena;
     this->email = email;
-    this->calificacionPromedio = 5;
+    this->calificacionPromedio = 0;
 }
 
 std::string Usuario::getNickname() const{
@@ -28,6 +28,7 @@ std::string Usuario::getEmail() const{
 
 float Usuario::getCalificacion() {
     if (this->califica.empty()) {
+        this->calificacionPromedio = 0;
         return this->calificacionPromedio;
     }
 

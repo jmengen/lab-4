@@ -3,14 +3,17 @@
 
 int main() {
     Fabrica* fabrica = Fabrica::getInstance();
-    Menu menu(
-        fabrica->getIControlAltaUsuario(),
-        fabrica->getIControlAltaViaje(),
-        fabrica->getIControlGenerarReserva(),
-        fabrica->getIControlCalificarUsuario(),
-        fabrica->getIEliminarViaje(),
-        fabrica->getIControladorFechaActual()
-    );
-    menu.mostrarMenu();
+    {
+        Menu menu(
+            fabrica->getIControlAltaUsuario(),
+            fabrica->getIControlAltaViaje(),
+            fabrica->getIControlGenerarReserva(),
+            fabrica->getIControlCalificarUsuario(),
+            fabrica->getIEliminarViaje(),
+            fabrica->getIControladorFechaActual()
+        );
+        menu.mostrarMenu();
+    }
+    Fabrica::liberarSistema();
     return 0;
 }

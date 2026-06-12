@@ -12,6 +12,11 @@ ControlCalificarUsuario * ControlCalificarUsuario::getInstance(){
     return instancia;
 }
 
+void ControlCalificarUsuario::liberarInstancia() {
+    delete instancia;
+    instancia = nullptr;
+}
+
 
 set<DTUsuario> ControlCalificarUsuario::listarUsuarios(){
     ManejadorUsuarios* mu = ManejadorUsuarios::getInstance();

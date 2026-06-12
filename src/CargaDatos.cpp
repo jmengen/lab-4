@@ -16,6 +16,11 @@ CargaDatos* CargaDatos::getInstance() {
     return instancia;
 }
 
+void CargaDatos::liberarInstancia() {
+    delete instancia;
+    instancia = nullptr;
+}
+
 void CargaDatos::cargarDatos() {
     if (datosCargados) {
         std::cout << "Error: Los datos ya han sido cargados anteriormente.\n";

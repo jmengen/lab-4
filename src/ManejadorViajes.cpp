@@ -12,6 +12,18 @@ ManejadorViajes *ManejadorViajes::getInstance(){
     return instancia;
 }
 
+void ManejadorViajes::liberarInstancia() {
+    delete instancia;
+    instancia = nullptr;
+}
+
+ManejadorViajes::~ManejadorViajes() {
+    for (std::map<int, Viaje*>::iterator it = viajes.begin(); it != viajes.end(); ++it) {
+        delete it->second;
+    }
+    viajes.clear();
+}
+
 std::set<Viaje*> ManejadorViajes::getViajes() {
     std::set<Viaje*> res;
     std::map<int, Viaje*>::iterator it;
